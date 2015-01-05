@@ -93,7 +93,11 @@ ssl = {
 -- Force clients to use encrypted connections? This option will
 -- prevent clients from authenticating unless they are using encryption.
 
-c2s_require_encryption = false
+c2s_require_encryption = true
+
+-- Force servers to use encryption
+
+s2s_require_encryption = true
 
 -- Force certificate authentication for server-to-server connections?
 -- This provides ideal security, but requires servers you communicate
@@ -152,16 +156,15 @@ log = {
 
 VirtualHost "localhost"
 
-VirtualHost "example.com"
-	enabled = false -- Remove this line to enable this host
-
+VirtualHost "{{ xmpp_domain_name }}"
 	-- Assign this host a certificate for TLS, otherwise it would use the one
 	-- set in the global section (if any).
 	-- Note that old-style SSL on port 5223 only supports one certificate, and will always
 	-- use the global one.
 	ssl = {
-		key = "/etc/prosody/certs/example.com.key";
-		certificate = "/etc/prosody/certs/example.com.crt";
+		key = "{{ prosody_conf_dir }}/certs/{{ xmpp_domain_name }}.key";
+		certificate = "{{ prosody_conf_dir }}/certs/{{ xmpp_domain_name }}.crt";
+		dhparam = "{{ prosody_conf_dir }}/certs/dhparam-2048.pem";
 	}
 
 ------ Components ------
