@@ -5,8 +5,11 @@
 - name: Add prosody.im stable repo
   apt_repository: repo="deb http://packages.prosody.im/debian {{ ansible_distribution_release }} main" state=present
 
-- name: Install prosody
-  apt: pkg=prosody update_cache=yes state=latest
+- name: Install prosody and deps
+  apt: pkg={{ item }} update_cache=yes state=latest
+  with_items:
+    - prosody
+    - lua-zlib # for compression
 
 - name: Copy prosody config
   template: src={{ prosody_conf_file}}.j2 dest={{ prosody_conf_dir }}/{{ prosody_conf_file }} mode=0655 owner=root group=root
