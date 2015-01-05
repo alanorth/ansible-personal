@@ -1,0 +1,18 @@
+---
+# file: roles/xmpp/defaults/main.yml
+
+# choice of xmpp server
+# can be overridden in host_vars
+xmpp_server: prosody
+
+# TLS key directory
+xmpp_tls_key_dir: /etc/ssl/private
+
+# from prosody 0.9.7 default, minus EECDH and non-forward-secret ciphers
+# http://prosody.im/doc/advanced_ssl_config
+xmpp_tls_cipher_suite: 'HIGH+kEDH:HIGH:!PSK:!SRP:!3DES:!aNULL'
+
+prosody_conf_dir: /etc/prosody
+prosody_conf_file: prosody.cfg.lua
+
+# vim: set ts=2 sw=2:

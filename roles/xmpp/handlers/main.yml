@@ -1,0 +1,5 @@
+---
+- name: reload prosody
+  service: name=prosody state=reloaded
+
+# vim: set ts=2 sw=2:

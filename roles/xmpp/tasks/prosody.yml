@@ -1,0 +1,19 @@
+---
+- name: Add prosody.im apt signing key
+  apt_key: url=https://prosody.im/files/prosody-debian-packages.key state=present
+
+- name: Add prosody.im stable repo
+  apt_repository: repo="deb http://packages.prosody.im/debian {{ ansible_distribution_release }} main" state=present
+
+- name: Install prosody
+  apt: pkg=prosody update_cache=yes state=latest
+
+- name: Copy prosody config
+  template: src={{ prosody_conf_file}}.j2 dest={{ prosody_conf_dir }}/{{ prosody_conf_file }} mode=0655 owner=root group=root
+  notify:
+    - reload prosody
+
+- name: Start & enable prosody service
+  service: name=prosody state=started enabled=yes
+
+# vim: set ts=2 sw=2:

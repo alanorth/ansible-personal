@@ -1,0 +1,17 @@
+---
+# file: xmpp.yml
+
+- name: Configure xmpp servers
+  hosts: xmpp
+  user: provisioning
+  sudo: yes
+  roles:
+    - common
+    - xmpp
+    - munin
+  vars_files:
+    - vars/ipsets.yml
+    - vars/provisioning.yml
+    - "vars/{{ ansible_distribution }}.yml"
+
+# vim: set sw=2 ts=2:
