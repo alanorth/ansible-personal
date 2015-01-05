@@ -12,7 +12,7 @@
     - lua-zlib # for compression
 
 - name: Copy prosody config
-  template: src={{ prosody_conf_file}}.j2 dest={{ prosody_conf_dir }}/{{ prosody_conf_file }} mode=0655 owner=root group=root
+  template: src={{ prosody_conf_file }}.j2 dest={{ prosody_conf_dir }}/{{ prosody_conf_file }} mode=0655 owner=root group=root
   notify:
     - reload prosody
 
