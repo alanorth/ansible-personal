@@ -11,6 +11,21 @@
     - prosody
     - lua-zlib # for compression
 
+- name: Copy TLS cert
+  copy: { dest: "{{ prosody_conf_dir }}/certs/{{ xmpp_domain_name }}.crt", content: "{{ xmpp_tls_cert }}", mode: 0600, owner: 'prosody', group: 'prosody' }
+  notify:
+    - reload prosody
+
+- name: Copy TLS key
+  copy: { dest: "{{ prosody_conf_dir }}/certs/{{ xmpp_domain_name }}.key", content: "{{ xmpp_tls_key }}", mode: 0600, owner: 'prosody', group: 'prosody' }
+  notify:
+    - reload prosody
+
+- name: Generate 2048-bit dhparam
+  command: openssl dhparam -out dhparam-2048.pem 2048 chdir={{ prosody_conf_dir }}/certs creates=dhparam-2048.pem
+  notify:
+    - reload prosody
+
 - name: Copy prosody config
   template: src={{ prosody_conf_file }}.j2 dest={{ prosody_conf_dir }}/{{ prosody_conf_file }} mode=0655 owner=root group=root
   notify:
