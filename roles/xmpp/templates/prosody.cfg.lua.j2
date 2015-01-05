@@ -165,6 +165,7 @@ VirtualHost "{{ xmpp_domain_name }}"
 		key = "{{ prosody_conf_dir }}/certs/{{ xmpp_domain_name }}.key";
 		certificate = "{{ prosody_conf_dir }}/certs/{{ xmpp_domain_name }}.crt";
 		dhparam = "{{ prosody_conf_dir }}/certs/dhparam-2048.pem";
+        options = { "no_sslv2", "no_sslv3", "no_ticket", "no_compression", "cipher_server_preference", "single_dh_use", "single_ecdh_use" };
 	}
 
 ------ Components ------
