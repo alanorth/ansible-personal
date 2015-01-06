@@ -5,11 +5,10 @@
 - name: Add prosody.im stable repo
   apt_repository: repo="deb http://packages.prosody.im/debian {{ ansible_distribution_release }} main" state=present
 
-- name: Install prosody and deps
+- name: Install prosody
   apt: pkg={{ item }} update_cache=yes state=latest
   with_items:
     - prosody
-    - lua-zlib # for compression
 
 - name: Copy TLS cert
   copy: { dest: "{{ prosody_conf_dir }}/certs/{{ xmpp_domain_name }}.crt", content: "{{ xmpp_tls_cert }}", mode: 0600, owner: 'prosody', group: 'prosody' }
