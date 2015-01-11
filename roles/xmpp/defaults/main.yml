@@ -8,9 +8,9 @@ xmpp_server: prosody
 # TLS key directory
 xmpp_tls_key_dir: /etc/ssl/private
 
-# from prosody 0.9.7 default, minus non-forward-secret ciphers and ciphers using NIST curves
+# from prosody 0.9.7 default, minus non-forward-secret ciphers, ciphers using NIST curves, ciphers using SHA1 for message authentication, and ciphers using DSS certificates
 # http://prosody.im/doc/advanced_ssl_config
-xmpp_tls_cipher_suite: 'HIGH+kEDH:!PSK:!SRP:!3DES:!aNULL'
+xmpp_tls_cipher_suite: 'HIGH+kEDH:!PSK:!SRP:!3DES:!aNULL:!SHA1:!DSS'
 
 prosody_conf_dir: /etc/prosody
 prosody_conf_file: prosody.cfg.lua
