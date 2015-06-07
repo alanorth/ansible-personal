@@ -1,0 +1,63 @@
+<zone>
+    <short>Public</short>
+    <description>For use in public areas. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
+    <interface name="{{ ansible_default_ipv4.alias }}"/>
+
+    {# ssh rules #}
+    <rule family="ipv4">
+        <source address="0.0.0.0/0"/>
+        <port protocol="tcp" port="22"/>
+        <accept/>
+    </rule>
+
+    {# ipv6 ssh rules #}
+    <rule family="ipv6">
+        <source address="::/0"/>
+        <port protocol="tcp" port="22"/>
+        <accept/>
+    </rule>
+
+    {# web rules #}
+    <rule family="ipv4">
+        <source address="0.0.0.0/0"/>
+        <port protocol="tcp" port="80"/>
+        <accept/>
+    </rule>
+
+    {# ipv6 web rules #}
+    <rule family="ipv6">
+        <source address="::/0"/>
+        <port protocol="tcp" port="80"/>
+        <accept/>
+    </rule>
+
+    {# munin rules #}
+    {% if munin_master_host is defined %}
+    <rule family="ipv4">
+        <source address="{{ ghetto_ipsets[munin_master_host].src }}"/>
+        <port protocol="tcp" port="{{ munin_node_port }}"/>
+        <accept/>
+    </rule>
+    {% endif %}
+
+    {# extra rules #}
+    {% if extra_iptables_rules is defined %}
+    {% for rule in extra_iptables_rules %}
+    <rule family="ipv4">
+        <source address="{{ ghetto_ipsets[rule.acl].src }}"/>
+        <port protocol="{{ rule.protocol }}" port="{{ rule.port }}"/>
+        <accept/>
+    </rule>
+
+    {# ipv6 extra rules #}
+    {% if ghetto_ipsets[rule.acl].ipv6src is defined %}
+    <rule family="ipv6">
+        <source address="{{ ghetto_ipsets[rule.acl].ipv6src }}"/>
+        <port protocol="{{ rule.protocol }}" port="{{ rule.port }}"/>
+        <accept/>
+    </rule>
+    {% endif %}
+
+    {% endfor %}
+    {% endif %}
+</zone>

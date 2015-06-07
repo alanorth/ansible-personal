@@ -12,3 +12,6 @@
 
 - name: reload sysctl
   command: sysctl -p /etc/sysctl.conf
+
+- name: restart firewalld
+  service: name=firewalld state=restarted
