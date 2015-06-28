@@ -6,11 +6,11 @@
   user: provisioning
   sudo: yes
   roles:
-    - common
-    - mariadb 
-    - nginx
-    - php5-fpm
-    - munin
+    - { role: common, when: ansible_distribution == 'Ubuntu' }
+    - { role: mariadb, when: ansible_distribution == 'Ubuntu' }
+    - { role: nginx, when: ansible_distribution == 'Ubuntu' }
+    - { role: php5-fpm, when: ansible_distribution == 'Ubuntu' }
+    - { role: munin, when: ansible_distribution == 'Ubuntu' }
   vars_files:
     - vars/ipsets.yml
     - "vars/{{ ansible_distribution }}.yml"
