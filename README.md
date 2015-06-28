@@ -23,7 +23,11 @@ Once you've satisfied the the above assumptions, you can execute:
 ### Testing in a VM (KVM)
 A simple way to test locally in a virtual machine using libvirt + KVM:
 
-    $ sudo virt-install -n web01 -r 1024 --vcpus 2 -l http://ubuntu.mirror.ac.ke/ubuntu/dists/trusty/main/installer-amd64/ --os-type=linux --os-variant=ubuntusaucy --disk /home/aorth/software/vms/web01.qcow2,device=disk,bus=virtio,format=qcow2,size=40 --vnc --cpuset=1,2 -x "auto=true priority=critical url=http://blah.com/~aorth/preseed/public/ubuntu-14.04.cfg"
+    $ sudo virt-install -n web01 -r 1024 --vcpus 2 \
+    -l http://ubuntu.mirror.ac.ke/ubuntu/dists/trusty/main/installer-amd64/ \
+    --os-type=linux --os-variant=ubuntusaucy \
+    --disk /var/lib/libvirt/images/web01.qcow2,device=disk,bus=virtio,format=qcow2,size=40 \
+    --vnc --cpuset=1,2 -x "auto=true priority=critical url=https://help.ubuntu.com/lts/installation-guide/example-preseed.txt"
 
 This boots from a network Ubuntu mirror, then uses a preseed to automate the OS installation.
 
@@ -32,7 +36,7 @@ Not as simple as on GNU/Linux with KVM, but still easy:
 
     $ vagrant up
 
-A new VirtualBox VM will come up with the IP 192.168.33.10.
+A new VirtualBox VM will come up with the IP `192.168.33.10`.
 
 ### License
 Copyright (C) 2014 - 2015 Alan Orth
