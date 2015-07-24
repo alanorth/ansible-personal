@@ -1,0 +1,35 @@
+---
+- name: Configure apt mirror
+  template: src=sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
+
+- name: Install base packages
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - git
+    - tmux
+    - iotop
+    - htop
+    - strace
+    - cron-apt #how does this work with systemd?
+    - safe-rm
+    - debian-goodies
+    - mosh
+    - python-pycurl # for ansible's apt_repository
+    - lzop
+    - vim
+    - lrzip
+    - unzip
+
+- name: Configure cron-apt (config)
+  copy: src=cron-apt/config dest=/etc/cron-apt/config mode=0644 owner=root group=root
+
+- name: Configure cron-apt (config)
+  copy: src=cron-apt/3-download dest=/etc/cron-apt/action.d/3-download mode=0644 owner=root group=root
+
+- name: Configure cron-apt (security)
+  copy: src=cron-apt/security.sources.list dest=/etc/apt/security.sources.list mode=0644 owner=root group=root
+
+- name: Enable systemd-timesyncd
+  service: name=systemd-timesyncd state=started enabled=yes
+
+# vim: set sw=2 ts=2:

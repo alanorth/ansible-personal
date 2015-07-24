@@ -12,6 +12,10 @@
   when: ansible_distribution == 'Ubuntu'
   tags: packages
 
+- include: packages_Debian.yml
+  when: ansible_distribution == 'Debian'
+  tags: packages
+
 - include: iptables_Debian.yml
   when: ansible_os_family == 'Debian'
   tags: firewall
