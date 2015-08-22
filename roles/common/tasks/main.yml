@@ -16,21 +16,7 @@
   when: ansible_os_family == 'Debian'
   tags: firewall
 
-- name: Reconfigure /etc/ssh/sshd_config
-  template: src=sshd_config_{{ansible_distribution}}-{{ansible_distribution_version}}.j2 dest=/etc/ssh/sshd_config owner=root group=root mode=0600
-  notify:
-    - restart sshd
-  tags: sshd
-
-- name: Remove DSA and ECDSA host keys
-  file: name=/etc/ssh/{{ item }} state=absent
-  with_items:
-    - ssh_host_dsa_key
-    - ssh_host_dsa_key.pub
-    - ssh_host_ecdsa_key
-    - ssh_host_ecdsa_key.pub
-  notify:
-    - restart sshd
+- include: sshd.yml
   tags: sshd
 
 - name: Reconfigure /etc/sysctl.conf
