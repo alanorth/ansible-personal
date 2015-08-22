@@ -23,7 +23,9 @@
 - include: sshd.yml
   tags: sshd
 
+# containers identify as virtualization hosts, which makes this tricky, because we have actual Debian VM hosts!
 - name: Reconfigure /etc/sysctl.conf
+  when: ansible_virtualization_role != 'host'
   template: src=sysctl_{{ ansible_distribution }}.j2 dest=/etc/sysctl.conf owner=root group=root mode=0644
   notify:
     - reload sysctl
