@@ -6,13 +6,13 @@
   user: provisioning
   sudo: yes
   roles:
-    - { role: common, when: ansible_distribution == 'Ubuntu' }
-    - { role: mariadb, when: ansible_distribution == 'Ubuntu' }
-    - { role: nginx, when: ansible_distribution == 'Ubuntu' }
-    - { role: php5-fpm, when: ansible_distribution == 'Ubuntu' }
-    - { role: munin, when: ansible_distribution == 'Ubuntu' }
+    - { role: common, when: ansible_os_family == 'Debian' }
+    - { role: mariadb, when: ansible_os_family == 'Debian' }
+    - { role: nginx, when: ansible_os_family == 'Debian' }
+    - { role: php5-fpm, when: ansible_os_family == 'Debian' }
+    - { role: munin, when: ansible_os_family == 'Debian' }
   vars_files:
     - vars/ipsets.yml
-    - "vars/{{ ansible_distribution }}.yml"
+    - "vars/{{ ansible_os_family }}.yml"
 
 # vim: set sw=2 ts=2:
