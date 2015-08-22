@@ -42,13 +42,7 @@
     - command-not-found-data
     - python3-commandnotfound
 
-- name: Configure cron-apt (config)
-  copy: src=cron-apt/config dest=/etc/cron-apt/config mode=0644 owner=root group=root
-
-- name: Configure cron-apt (config)
-  copy: src=cron-apt/3-download dest=/etc/cron-apt/action.d/3-download mode=0644 owner=root group=root
-
-- name: Configure cron-apt (security)
-  copy: src=cron-apt/security.sources.list dest=/etc/apt/security.sources.list mode=0644 owner=root group=root
+- include: cron-apt.yml
+  tags: cron-apt
 
 # vim: set sw=2 ts=2:
