@@ -26,5 +26,5 @@ deb http://{{ apt_mirror }}/debian/ {{ ansible_distribution_release }} main cont
 
 deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
 
-deb http://debian.mirror.ac.ke/debian/ {{ ansible_distribution_release }}-updates main contrib non-free
+deb http://{{ apt_mirror }}/debian/ {{ ansible_distribution_release }}-updates main contrib non-free
 {% endif %} {# ansible_distribution #}
