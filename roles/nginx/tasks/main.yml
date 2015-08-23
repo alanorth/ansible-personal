@@ -4,7 +4,7 @@
   tags: nginx
 
 - name: Add nginx.org repo
-  template: src=nginx_org_packages_ubuntu.list.j2 dest=/etc/apt/sources.list.d/nginx_org_packages_ubuntu.list owner=root group=root mode=0644
+  template: src=nginx_org_sources.list.j2 dest=/etc/apt/sources.list.d/nginx_org_sources.list owner=root group=root mode=0644
   tags: nginx
 
 - name: Install nginx
