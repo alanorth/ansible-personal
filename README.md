@@ -1,8 +1,8 @@
-## Ansible Playbook
+# Ansible Playbook
 
 Ansible playbook for base and initial configuration of web server hosting my personal websites.  After successful execution of this playbook, however, there is still some manual work to import databases, copy site content, etc.
 
-### Assumptions
+## Assumptions
 Before you can run this, a few things are assumed:
 
 - You have a clean, minimal Ubuntu 14.04 host up and running
@@ -15,12 +15,12 @@ Before you can run this, a few things are assumed:
 web01
 ```
 
-### Use
+## Use
 Once you've satisfied the the above assumptions, you can execute:
 
     $ ansible-playbook web.yml -i hosts -K
 
-### Testing in a VM (KVM)
+## Testing in a VM (KVM)
 A simple way to test locally in a virtual machine using libvirt + KVM:
 
     $ sudo virt-install -n web01 -r 1024 --vcpus 2 \
@@ -31,14 +31,14 @@ A simple way to test locally in a virtual machine using libvirt + KVM:
 
 This boots from a network Ubuntu mirror, then uses a preseed to automate the OS installation.
 
-### Testing in Vagrant
+## Testing in Vagrant
 Not as simple as on GNU/Linux with KVM, but still easy:
 
     $ vagrant up
 
 A new VirtualBox VM will come up with the IP `192.168.33.10`.
 
-### License
+## License
 Copyright (C) 2014 - 2015 Alan Orth
 
 The contents of this repository are free software: you can redistribute
