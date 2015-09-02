@@ -90,8 +90,5 @@ Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.
 MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com
 KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
 
-{% if ssh_allowed_users is defined and ssh_allowed_users %}
-# Is there a list of allowed users?
-# Is it populated? (An empty list is 'None', which evaluates as False in Python)
-AllowUsers {{ ssh_allowed_users }} provisioning
-{% endif %}
+# only allow shell access by provisioning user
+AllowUsers {{ provisioning_user.name }}
