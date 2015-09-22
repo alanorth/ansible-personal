@@ -20,8 +20,8 @@ server {
 {% endif %}
 
 server {
-    listen {% if use_https == "yes" %} 443 ssl spdy{% else %} 80{% endif %};
-    listen [::]{% if use_https == "yes" %}:443 ssl spdy{% else %}:80{% endif %};
+    listen {% if use_https == "yes" %} 443 ssl http2{% else %} 80{% endif %};
+    listen [::]{% if use_https == "yes" %}:443 ssl http2{% else %}:80{% endif %};
 
     root {{ nginx_root_prefix }}/{{ domain_name }};
 

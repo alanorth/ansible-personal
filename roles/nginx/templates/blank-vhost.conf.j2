@@ -5,7 +5,7 @@
 server {
     listen 80 default;
     {% if nginx_tls_vhosts is defined %}
-    listen 443 ssl spdy default;
+    listen 443 ssl http2 default;
     {% endif %}
     server_name _;
 
