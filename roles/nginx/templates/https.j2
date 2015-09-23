@@ -28,9 +28,6 @@
     # of such infrastructure, consider turning off session tickets:
     ssl_session_tickets off;
 
-    # enable SPDY header compression
-    spdy_headers_comp {{ nginx_spdy_headers_comp }};
-
     {% if nginx_enable_hsts == True %}
     # Enable this if you want HSTS (recommended, but be careful)
     # Include all subdomains and indicate to Google that we want this pre-loaded in Chrome's HSTS store
