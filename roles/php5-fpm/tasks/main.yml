@@ -23,6 +23,11 @@
   notify: restart php5-fpm
   tags: php5-fpm
 
+- name: Remove default www pool
+  file: path=/etc/php5/fpm/pool.d/www.conf state=absent
+  notify: restart php5-fpm
+  tags: php5-fpm
+
 # re-configure php.ini
 - name: Update php.ini
   template: src=php.ini.j2 dest=/etc/php5/fpm/php.ini owner=root group=root mode=0644
