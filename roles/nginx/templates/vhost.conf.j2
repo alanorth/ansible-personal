@@ -1,11 +1,11 @@
 {% set domain_name      = item.nginx_domain_name %}
 {% set domain_aliases   = item.nginx_domain_aliases | default("") %}
-{% set use_https        = item.use_https | default("no") %}
+{% set enable_https        = item.enable_https | default("no") %}
 {# assume HSTS is off unless a vhost explicitly sets it to "yes" #}
 {% set enable_hsts      = item.nginx_enable_hsts | default("no") %}
 {% set has_wordpress    = item.has_wordpress | default("no") %}
 
-{% if use_https == "yes" %}
+{% if enable_https == "yes" %}
 # http -> https vhost
 server {
     listen 80;
@@ -22,20 +22,20 @@ server {
 {% endif %}
 
 server {
-    listen {% if use_https == "yes" %} 443 ssl http2{% else %} 80{% endif %};
-    listen [::]{% if use_https == "yes" %}:443 ssl http2{% else %}:80{% endif %};
+    listen {% if enable_https == "yes" %} 443 ssl http2{% else %} 80{% endif %};
+    listen [::]{% if enable_https == "yes" %}:443 ssl http2{% else %}:80{% endif %};
 
     root {{ nginx_root_prefix }}/{{ domain_name }};
 
     {# assumes you only want the main domain name listening for https #}
-    server_name {{ domain_name }} {% if use_https == "no" %} {{ domain_aliases }}{% endif %};
+    server_name {{ domain_name }} {% if enable_https == "no" %} {{ domain_aliases }}{% endif %};
 
     index index.php index.html;
 
     access_log  /var/log/nginx/{{ domain_name }}-access.log;
     error_log   /var/log/nginx/{{ domain_name }}-error.log;
 
-    {% if use_https == "yes" %}
+    {% if enable_https == "yes" %}
         {% include 'https.j2' %}
     {% endif %}
 
@@ -71,7 +71,7 @@ server {
         fastcgi_cache_bypass $http_pragma $wordpress_logged_in;
         fastcgi_no_cache $http_pragma $wordpress_logged_in;
 
-        {% if use_https == "yes" and enable_hsts == "yes" %}
+        {% if enable_https == "yes" and enable_hsts == "yes" %}
         # Enable this if you want HSTS (recommended, but be careful)
         # Include all subdomains and indicate to Google that we want this pre-loaded in Chrome's HSTS store
         # See: https://hstspreload.appspot.com/
