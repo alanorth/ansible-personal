@@ -16,10 +16,6 @@ nginx_ssl_buffer_size: 1400
 nginx_ssl_dhparam: /etc/ssl/certs/dhparam.pem
 nginx_ssl_protocols: 'TLSv1 TLSv1.1 TLSv1.2'
 
-# Enable HTTP Strict Transport Security?
-# True on production, False on development!
-nginx_enable_hsts: True
-
 # TLS key directory
 tls_key_dir: /etc/ssl/private
 

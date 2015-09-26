@@ -1,4 +1,6 @@
 {% set domain_name      = item.nginx_domain_name %}
+{# assume HSTS is off unless a vhost explicitly sets it to "yes" #}
+{% set enable_hsts      = item.nginx_enable_hsts | default("no") %}
 
     # concatenated key + cert
     # See: http://nginx.org/en/docs/http/configuring_https_servers.html
@@ -28,7 +30,7 @@
     # of such infrastructure, consider turning off session tickets:
     ssl_session_tickets off;
 
-    {% if nginx_enable_hsts == True %}
+    {% if enable_hsts == "yes" %}
     # Enable this if you want HSTS (recommended, but be careful)
     # Include all subdomains and indicate to Google that we want this pre-loaded in Chrome's HSTS store
     # See: https://hstspreload.appspot.com/
