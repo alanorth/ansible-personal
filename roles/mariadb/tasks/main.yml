@@ -3,8 +3,8 @@
   apt_key: id=0xcbcb082a1bb943db url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xcbcb082a1bb943db
   tags: mariadb
 
-- name: Add MariaDB 10.0 repo
-  apt_repository: repo="deb http://sgp1.mirrors.digitalocean.com/mariadb/repo/10.0/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main" state=present
+- name: Add MariaDB 10.1 repo
+  apt_repository: repo="deb http://sgp1.mirrors.digitalocean.com/mariadb/repo/10.1/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main" state=present
   tags: mariadb
 
 - name: Install mariadb-server
