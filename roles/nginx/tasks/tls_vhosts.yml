@@ -6,15 +6,6 @@
   notify:
     - reload nginx
 
-# concatenated key + cert, can live in the same file
-# See: http://nginx.org/en/docs/http/configuring_https_servers.html
-- name: Copy TLS certs
-  copy: { dest: "{{ tls_key_dir }}/{{ item.nginx_domain_name }}.crt.pem", content: "{{ item.tls_cert }}", mode: 0700, owner: 'root', group: 'root' }
-  with_items: nginx_tls_vhosts
-  when: item.tls_cert is defined
-  notify:
-    - reload nginx
-
 - name: Generate self-signed TLS cert
   command: openssl req -x509 -nodes -sha256 -days 365 -subj "/C=SO/ST=SO/L=snakeoil/O=snakeoil/CN=snakeoil" -newkey rsa:2048 -keyout /etc/ssl/private/nginx-snakeoil.key -out /etc/ssl/certs/nginx-snakeoil.crt -extensions v3_ca creates=/etc/ssl/certs/nginx-snakeoil.crt
   notify:

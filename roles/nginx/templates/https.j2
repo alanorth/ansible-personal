@@ -4,8 +4,8 @@
 
     # concatenated key + cert
     # See: http://nginx.org/en/docs/http/configuring_https_servers.html
-    ssl_certificate {{ tls_key_dir }}/{{ domain_name }}.crt.pem;
-    ssl_certificate_key {{ tls_key_dir }}/{{ domain_name }}.crt.pem;
+    ssl_certificate {{ tls_key_dir }}/{{ domain_name }}/fullchain.pem;
+    ssl_certificate_key {{ tls_key_dir }}/{{ domain_name }}/privkey.pem;
 
     ssl_session_timeout {{ nginx_ssl_session_timeout }};
     ssl_session_cache {{ nginx_ssl_session_cache }};
