@@ -21,7 +21,7 @@ deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partn
 deb http://extras.ubuntu.com/ubuntu {{ ansible_distribution_release }} main
 {% endif %}
 {% else %}
-{% set apt_mirror    = apt_mirror | default('debian.mirror.ac.ke') %}
+{% set apt_mirror    = apt_mirror | default('httpredir.debian.org') %}
 deb http://{{ apt_mirror }}/debian/ {{ ansible_distribution_release }} main contrib non-free
 
 deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
