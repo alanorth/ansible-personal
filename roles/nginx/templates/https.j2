@@ -19,7 +19,12 @@
     # OCSP stapling...
     ssl_stapling on;
     ssl_stapling_verify on;
+    {% if linode_id is defined %}
+    # use Linode internal DNS
     resolver 109.74.192.20 109.74.193.20;
+    {% else %}
+    resolver 8.8.8.8 8.8.4.4;
+    {% endif %}
 
     # nginx does not auto-rotate session ticket keys: only a HUP / restart will do so and
     # when a restart is performed the previous key is lost, which resets all previous
