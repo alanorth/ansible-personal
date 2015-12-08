@@ -34,7 +34,7 @@
   tags: mariadb
 
 - name: Create WordPress database(s)
-  mysql_db: db={{ item.wordpress_db_name }} state=present
+  mysql_db: db={{ item.wordpress_db_name }} state=present encoding=utf8mb4
   with_items: wordpress_blogs
   when: wordpress_blogs is defined
   tags: mariadb
