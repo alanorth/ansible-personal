@@ -1,6 +1,6 @@
-{% set domain_name      = item.nginx_domain_name %}
+{% set domain_name       = item.nginx_domain_name %}
 {# assume HSTS is off unless a vhost explicitly sets it to "yes" #}
-{% set enable_hsts      = item.nginx_enable_hsts | default("no") %}
+{% set enable_hsts       = item.nginx_enable_hsts | default("no") %}
 {# use self-signed certs? yes on development, no on production #}
 {% set use_snakeoil_cert = item.use_snakeoil_cert | default("no") %}
 
