@@ -26,4 +26,10 @@
   with_items: nginx_tls_vhosts
   tags: wordpress
 
+- name: Fix WordPress directory permissions
+  file: path={{ nginx_root_prefix }}/{{ item.nginx_domain_name }} state=directory owner=nginx group=nginx recurse=yes
+  when: item.has_wordpress == 'yes'
+  with_items: nginx_tls_vhosts
+  tags: wordpress
+
 # vim: set ts=2 sw=2:
