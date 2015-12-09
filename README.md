@@ -1,5 +1,5 @@
 # Ansible Playbook
-Ansible playbook for base and initial configuration of web server hosting my personal websites. After successful execution of this playbook, however, there is still some manual work to import databases, copy site content, etc.
+Ansible playbook for base and initial configuration of the web server hosting my personal websites. After successful execution of this playbook, however, there is still some manual work to import databases, copy site content, etc.
 
 ## Assumptions
 Before you can run this, a few things are assumed:
