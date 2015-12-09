@@ -1,9 +1,9 @@
-{% set domain_name      = item.nginx_domain_name %}
-{% set domain_aliases   = item.nginx_domain_aliases | default("") %}
-{% set enable_https        = item.nginx_enable_https | default("no") %}
+{% set domain_name    = item.nginx_domain_name %}
+{% set domain_aliases = item.nginx_domain_aliases | default("") %}
+{% set enable_https   = item.nginx_enable_https | default("no") %}
 {# assume HSTS is off unless a vhost explicitly sets it to "yes" #}
-{% set enable_hsts      = item.nginx_enable_hsts | default("no") %}
-{% set has_wordpress    = item.has_wordpress | default("no") %}
+{% set enable_hsts    = item.nginx_enable_hsts | default("no") %}
+{% set has_wordpress  = item.has_wordpress | default("no") %}
 
 {% if enable_https == "yes" %}
 # http -> https vhost
