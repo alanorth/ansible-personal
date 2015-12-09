@@ -1,3 +1,4 @@
+{# helper variables and per-site defaults that we can't set in role defaults #}
 {% set domain_name    = item.nginx_domain_name %}
 {% set domain_aliases = item.nginx_domain_aliases | default("") %}
 {% set enable_https   = item.nginx_enable_https | default("no") %}
