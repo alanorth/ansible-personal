@@ -11,13 +11,6 @@
 
 - name: Copy php5-fpm pool config
   template: src=pool.conf.j2 dest=/etc/php5/fpm/pool.d/{{ item.nginx_domain_name }}.conf owner=root group=root mode=0644
-  with_items: nginx_vhosts
-  when: nginx_vhosts is defined
-  notify: restart php5-fpm
-  tags: php5-fpm
-
-- name: Copy php5-fpm pool config
-  template: src=pool.conf.j2 dest=/etc/php5/fpm/pool.d/{{ item.nginx_domain_name }}.conf owner=root group=root mode=0644
   with_items: nginx_tls_vhosts
   when: nginx_tls_vhosts is defined
   notify: restart php5-fpm
