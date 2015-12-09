@@ -4,12 +4,15 @@
 # a vhost serving that domain.
 server {
     listen 80 default;
-    {% if nginx_tls_vhosts is defined %}
-    listen 443 ssl http2 default;
-    {% endif %}
+    listen [::]:80 default;
     server_name _;
 
-    {% if nginx_tls_vhosts is defined %}
+    return 403;
+}
+server {
+    listen 443 ssl http2 default;
+    server_name _;
+
     # "snakeoil" certificate (self signed!)
     ssl_certificate /etc/ssl/certs/nginx-snakeoil.crt;
     ssl_certificate_key /etc/ssl/private/nginx-snakeoil.key;
@@ -30,7 +33,6 @@ server {
     # Note that you'll have to define and rotate the keys securely by yourself. In absence
     # of such infrastructure, consider turning off session tickets:
     ssl_session_tickets off;
-    {% endif %}
 
     return 403;
 }
