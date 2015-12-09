@@ -1,7 +1,7 @@
 ---
 
 - name: Configure https vhosts
-  template: src=vhost.conf.j2 dest={{ nginx_confd_path }}/{{ item.nginx_domain_name }}.conf mode=0644 owner=root group=root
+  template: src=vhost.conf.j2 dest={{ nginx_confd_path }}/{{ item.domain_name }}.conf mode=0644 owner=root group=root
   with_items: nginx_vhosts
   notify:
     - reload nginx
@@ -17,17 +17,17 @@
     - reload nginx
 
 - name: Create vhost document roots
-  file: path={{ nginx_root_prefix }}/{{ item.nginx_domain_name }} state=directory mode=0755 owner=nginx group=nginx
+  file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory mode=0755 owner=nginx group=nginx
   with_items: nginx_vhosts
 
 - name: Install WordPress
-  git: repo=https://github.com/WordPress/WordPress.git dest={{ nginx_root_prefix }}/{{ item.nginx_domain_name }}/wordpress version={{ item.wordpress_version }} depth=1
+  git: repo=https://github.com/WordPress/WordPress.git dest={{ nginx_root_prefix }}/{{ item.domain_name }}/wordpress version={{ item.wordpress_version }} depth=1
   when: item.has_wordpress == 'yes'
   with_items: nginx_vhosts
   tags: wordpress
 
 - name: Fix WordPress directory permissions
-  file: path={{ nginx_root_prefix }}/{{ item.nginx_domain_name }} state=directory owner=nginx group=nginx recurse=yes
+  file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory owner=nginx group=nginx recurse=yes
   when: item.has_wordpress == 'yes'
   with_items: nginx_vhosts
   tags: wordpress
