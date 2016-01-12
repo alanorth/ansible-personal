@@ -4,7 +4,7 @@
 - name: Configure web servers
   hosts: web
   user: provisioning
-  sudo: yes
+  become: yes
   roles:
     - { role: common, when: ansible_os_family == 'Debian' }
     - { role: mariadb, when: ansible_os_family == 'Debian' }
