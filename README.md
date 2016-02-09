@@ -17,7 +17,7 @@ web01
 ## Use
 Once you've satisfied the the above assumptions, you can execute:
 
-    $ ansible-playbook web.yml -i hosts -K
+    $ ansible-playbook web.yml -i hosts --ask-become-pass
 
 ## License
 Copyright (C) 2014 - 2015 Alan Orth
