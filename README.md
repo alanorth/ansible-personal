@@ -20,7 +20,7 @@ Once you've satisfied the the above assumptions, you can execute:
     $ ansible-playbook web.yml -i hosts --ask-become-pass
 
 ## License
-Copyright (C) 2014 - 2015 Alan Orth
+Copyright (C) 2014 - 2016 Alan Orth
 
 The contents of this repository are free software: you can redistribute
 it and/or modify it under the terms of the GNU General Public License
