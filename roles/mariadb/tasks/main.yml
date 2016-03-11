@@ -35,13 +35,13 @@
 
 - name: Create WordPress database(s)
   mysql_db: db={{ item.wordpress_db_name }} state=present encoding=utf8mb4
-  with_items: wordpress_blogs
+  with_items: "{{ wordpress_blogs }}"
   when: wordpress_blogs is defined
   tags: mariadb
 
 - name: Create WordPress user(s)
   mysql_user: name={{ item.wordpress_db_user }} password={{ item.wordpress_db_pass }} priv={{ item.wordpress_db_name }}.*:ALL state=present
-  with_items: wordpress_blogs
+  with_items: "{{ wordpress_blogs }}"
   when: wordpress_blogs is defined
   tags: mariadb
 
