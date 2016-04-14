@@ -16,18 +16,18 @@
     - restart iptables-persistent
 
 - name: Install firewalld and deps
-  when: ansible_distribution_version == '15.04'
+  when: ansible_distribution_version >= '15.04'
   apt: pkg={{ item }} state=latest
   with_items:
     - firewalld
     - tidy
 
 - name: Copy firewalld public zone file
-  when: ansible_distribution_version == '15.04'
+  when: ansible_distribution_version >= '15.04'
   template: src=public.xml.j2 dest=/etc/firewalld/zones/public.xml owner=root mode=0600
 
 - name: Format public.xml firewalld zone file
-  when: ansible_distribution_version == '15.04'
+  when: ansible_distribution_version >= '15.04'
   shell: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
   notify:
     - restart firewalld
