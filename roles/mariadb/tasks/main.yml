@@ -4,7 +4,7 @@
   tags: mariadb
 
 - name: Add MariaDB 10.1 repo
-  apt_repository: repo="deb http://sgp1.mirrors.digitalocean.com/mariadb/repo/10.1/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main" state=present
+  template: src=mariadb.list.j2 dest=/etc/apt/sources.list.d/mariadb.list owner=root group=root mode=0644
   tags: mariadb
 
 - name: Install mariadb-server

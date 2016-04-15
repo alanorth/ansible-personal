@@ -1,0 +1,10 @@
+{% if ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04' %}
+
+# there are no xenial builds yet, so use wily
+deb [arch=amd64,i386] http://mariadb.mirror.serveriai.lt/repo/10.1/ubuntu wily main
+
+{% elif ansible_distribution == 'Debian' %}
+
+deb [arch=amd64,i386] http://mariadb.mirror.serveriai.lt/repo/10.1/debian {{ ansible_distribution_release }} main
+
+{% endif %} {# ansible_distribution #}
