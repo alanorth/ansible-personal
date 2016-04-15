@@ -27,6 +27,7 @@
 
 - name: Create fastcgi cache dir
   file: path=/var/cache/nginx/cached/fastcgi state=directory owner=nginx group=nginx mode=0755
+  tags: nginx
 
 - include: vhosts.yml
   when: nginx_vhosts is defined
