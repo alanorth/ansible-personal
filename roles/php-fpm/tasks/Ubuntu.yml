@@ -1,0 +1,30 @@
+---
+- name: Install php7.0-fpm and deps
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - php7.0-fpm
+    # for WordPress
+    - php7.0-mysql
+    - php7.0-gd
+    - php7.0-curl
+  tags: php-fpm
+
+- name: Copy php-fpm pool config
+  template: src=php7.0-pool.conf.j2 dest=/etc/php/7.0/fpm/pool.d/{{ item.domain_name }}.conf owner=root group=root mode=0644
+  with_items: "{{ nginx_vhosts }}"
+  when: nginx_vhosts is defined
+  notify: restart php7.0-fpm
+  tags: php-fpm
+
+- name: Remove default www pool
+  file: path=/etc/php/7.0/fpm/pool.d/www.conf state=absent
+  notify: restart php7.0-fpm
+  tags: php-fpm
+
+# re-configure php.ini
+- name: Update php.ini
+  template: src=php7.0-php.ini.j2 dest=/etc/php/7.0/fpm/php.ini owner=root group=root mode=0644
+  notify: restart php7.0-fpm
+  tags: php-fpm
+
+# vim: set ts=2 sw=2:

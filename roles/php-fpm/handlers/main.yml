@@ -1,5 +1,10 @@
 ---
+# For Debian 8
 - name: restart php5-fpm
   service: name=php5-fpm state=restarted
+
+# For Ubuntu 16.04
+- name: restart php7.0-fpm
+  service: name=php7.0-fpm state=restarted
 
 # vim: set ts=2 sw=2:
