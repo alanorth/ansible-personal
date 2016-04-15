@@ -9,7 +9,7 @@
     - { role: common, when: ansible_os_family == 'Debian' }
     - { role: mariadb, when: ansible_os_family == 'Debian' }
     - { role: nginx, when: ansible_os_family == 'Debian' }
-    - { role: php5-fpm, when: ansible_os_family == 'Debian' }
+    - { role: php-fpm, when: ansible_os_family == 'Debian' }
     - { role: munin, when: ansible_os_family == 'Debian' }
   vars_files:
     - vars/ipsets.yml
