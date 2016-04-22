@@ -14,6 +14,12 @@
     - python-mysqldb # for ansible
   tags: mariadb
 
+- name: Create system my.cnf
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root group=root mode=0644
+  notify:
+    - restart mysql
+  tags: mariadb
+
 - name: Start and enable MariaDB Service
   service: name=mysql state=started enabled=true
   tags: mariadb
