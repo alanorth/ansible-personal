@@ -54,7 +54,11 @@ server {
         #NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
 
+        {% if ansible_distribution_version == '16.04' %}
+        fastcgi_pass unix:/run/php/php7.0-fpm-{{ domain_name }}.sock;
+        {% else %}
         fastcgi_pass unix:/var/run/php5-fpm-{{ domain_name }}.sock;
+        {% endif %}
         fastcgi_index index.php;
         # set script path relative to document root in server block
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
