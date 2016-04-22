@@ -1,0 +1,25 @@
+---
+# file: roles/mariadb/defaults/main.yml
+#
+# Based on my running of mysqltuner.pl on a host with three WordPress databases
+# and a Piwik instance monitoring three sites.
+#
+
+# default is 128MB but is a waste because it seems only the mysql table uses it
+key_buffer_size: 32M
+
+# default is 128MB but is a waste because it seems only information_schema uses
+# AriaDB, see: https://mariadb.com/kb/en/mariadb/aria-system-variables
+aria_pagecache_buffer_size: 8M
+
+# default is 128M, but set to at least the size of your InnoDB data
+innodb_buffer_pool_size: 256M
+
+# Unless you have a pool size over 1GB, use a single instance
+# See: https://mariadb.com/kb/en/mariadb/xtradbinnodb-server-system-variables
+innodb_buffer_pool_instances: 1
+
+# default is 100 but the max I've seen used is 5, so let's reduce it
+max_connections: 33
+
+# vim: set ts=2 sw=2:
