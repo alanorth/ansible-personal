@@ -1,5 +1,5 @@
 ---
-# file: roles/php5-fpm/defaults/main.yml
+# file: roles/php-fpm/defaults/main.yml
 
 # default is on, but turn it off because of protection in nginx vhosts
 cgi_fix_pathinfo: 0
