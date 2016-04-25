@@ -35,7 +35,7 @@
     # use Linode internal DNS
     resolver 109.74.192.20 109.74.193.20;
     {% else %}
-    resolver 8.8.8.8 8.8.4.4;
+    resolver 8.8.8.8 8.8.4.4 [2001:4860:4860::8844] [2001:4860:4860::8888];
     {% endif %} {# end: linode_id #}
     {% endif %} {# end: use_snakeoil_cert #}
 
