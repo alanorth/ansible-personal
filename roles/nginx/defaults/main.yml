@@ -19,8 +19,8 @@ nginx_ssl_protocols: 'TLSv1 TLSv1.1 TLSv1.2'
 # TLS key directory
 tls_key_dir: /etc/letsencrypt/live
 
-# stable is 1.8.x
+# stable is 1.10.x
 # mainline is 1.9.x
-nginx_version: mainline
+nginx_version: stable
 
 # vim: set ts=2 sw=2:
