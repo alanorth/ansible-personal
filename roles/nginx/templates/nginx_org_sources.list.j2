@@ -1,18 +1,8 @@
-{% if ansible_distribution_version == '14.04' %}
+{% if ansible_distribution == 'Ubuntu' %}
 {% if nginx_version == "stable" %}
 deb http://nginx.org/packages/ubuntu/ {{ ansible_distribution_release }} nginx
 {% elif nginx_version == "mainline" %}
 deb http://nginx.org/packages/mainline/ubuntu/ {{ ansible_distribution_release }} nginx
-{% endif %}
-{% endif %}
-
-{% if ansible_distribution_version == '16.04' %}
-# There are no nginx.org builds for Ubuntu 16.04 (xenial) yet, so use 15.10 (wily)
-{% if nginx_version == "stable" %}
-deb http://nginx.org/packages/ubuntu/ wily nginx
-{% elif nginx_version == "mainline" %}
-# There are no "mainline" nginx.org builds for Ubuntu 16.04 (xenial) yet, so use 15.10 (wily)
-deb http://nginx.org/packages/mainline/ubuntu/ wily nginx
 {% endif %}
 {% endif %}
 
