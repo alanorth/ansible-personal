@@ -21,6 +21,6 @@ tls_key_dir: /etc/letsencrypt/live
 
 # stable is 1.10.x
 # mainline is 1.9.x
-nginx_version: stable
+nginx_version: mainline
 
 # vim: set ts=2 sw=2:
