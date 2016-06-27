@@ -46,16 +46,16 @@
   template: src=.my.cnf.j2 dest=/root/.my.cnf owner=root mode=0600
   tags: mariadb
 
-- name: Create WordPress database(s)
-  mysql_db: db={{ item.wordpress_db_name }} state=present encoding=utf8mb4
-  with_items: "{{ wordpress_blogs }}"
-  when: wordpress_blogs is defined
+- name: Create MariaDB database(s)
+  mysql_db: db={{ item.name }} state=present encoding=utf8mb4
+  with_items: "{{ mariadb_databases }}"
+  when: mariadb_databases is defined
   tags: mariadb
 
-- name: Create WordPress user(s)
-  mysql_user: name={{ item.wordpress_db_user }} password={{ item.wordpress_db_pass }} priv={{ item.wordpress_db_name }}.*:ALL state=present
-  with_items: "{{ wordpress_blogs }}"
-  when: wordpress_blogs is defined
+- name: Create MariaDB user(s)
+  mysql_user: name={{ item.user }} password={{ item.pass }} priv={{ item.name }}.*:ALL state=present
+  with_items: "{{ mariadb_databases }}"
+  when: mariadb_databases is defined
   tags: mariadb
 
 # vim: set ts=2 sw=2:
