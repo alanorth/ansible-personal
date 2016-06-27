@@ -32,4 +32,8 @@
   with_items: "{{ nginx_vhosts }}"
   tags: wordpress
 
+- include: letsencrypt.yml
+  when: use_letsencrypt == 'yes'
+  tags: letsencrypt
+
 # vim: set ts=2 sw=2:

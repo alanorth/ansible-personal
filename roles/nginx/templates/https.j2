@@ -2,28 +2,22 @@
 {% set domain_name       = item.domain_name %}
 {# assume HSTS is off unless a vhost explicitly sets it to "yes" #}
 {% set enable_hsts       = item.enable_hsts | default("no") %}
-{# assume a vhost is not using Let's Encrypt unless it explicitly sets it to "yes" #}
-{% set use_letsencrypt = item.use_letsencrypt | default("no") %}
 
-    {% if use_letsencrypt == "yes" %}
-
-    # concatenated key + cert
-    # See: http://nginx.org/en/docs/http/configuring_https_servers.html
-    ssl_certificate {{ letsencrypt_root }}/{{ domain_name }}/fullchain.pem;
-    ssl_certificate_key {{ letsencrypt_root }}/{{ domain_name }}/privkey.pem;
-
-    {% elif item.tls_certificate_path and item.tls_key_path %}
+    {# first, check if the current vhost has a custom cert (perhaps self-signed) #}
+    {% if item.tls_certificate_path and item.tls_key_path %}
 
     # concatenated key + cert
     # See: http://nginx.org/en/docs/http/configuring_https_servers.html
     ssl_certificate {{ item.tls_certificate_path }};
     ssl_certificate_key {{ item.tls_key_path }};
 
+    {# otherwise, assume host is using letsencrypt #}
     {% else %}
 
-    # "snakeoil" certificate (self signed!)
-    ssl_certificate /etc/ssl/certs/nginx-snakeoil.crt;
-    ssl_certificate_key /etc/ssl/private/nginx-snakeoil.key;
+    # concatenated key + cert
+    # See: http://nginx.org/en/docs/http/configuring_https_servers.html
+    ssl_certificate {{ letsencrypt_root }}/{{ domain_name }}/fullchain.pem;
+    ssl_certificate_key {{ letsencrypt_root }}/{{ domain_name }}/privkey.pem;
 
     {% endif %}
 

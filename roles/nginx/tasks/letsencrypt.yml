@@ -1,0 +1,22 @@
+---
+
+- name: Copy systemd service to renew Let's Encrypt certs
+  template: src=renew-letsencrypt.service.j2 dest=/etc/systemd/system/renew-letsencrypt.service mode=0644 owner=root group=root
+  register: letsencrypt_service
+
+- name: Copy systemd timer to renew Let's Encrypt certs
+  copy: src=renew-letsencrypt.timer dest=/etc/systemd/system/renew-letsencrypt.timer mode=0644 owner=root group=root
+  register: letsencrypt_timer
+
+# need to reload to pick up service/timer changes
+- name: Reload systemd daemon
+  command: /bin/systemctl daemon-reload
+  when: letsencrypt_service|changed or letsencrypt_timer|changed
+
+- name: Start and enable systemd timer to renew Let's Encrypt certs
+  service: name=renew-letsencrypt.timer state=started enabled=yes
+
+- name: Download certbot
+  get_url: dest={{ letsencrypt_certbot_dest }} url=https://dl.eff.org/certbot-auto mode=700
+
+# vim: set ts=2 sw=2:
