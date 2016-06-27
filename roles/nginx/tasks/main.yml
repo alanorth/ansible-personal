@@ -45,7 +45,7 @@
     - reload nginx
   tags: nginx
 
-- name: Start & enable nginx service
+- name: Start and enable nginx service
   service: name=nginx state=started enabled=yes
   tags: nginx
 
