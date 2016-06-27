@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 {% if ansible_distribution == 'Ubuntu' %}
 {% if nginx_version == "stable" %}
 deb http://nginx.org/packages/ubuntu/ {{ ansible_distribution_release }} nginx
