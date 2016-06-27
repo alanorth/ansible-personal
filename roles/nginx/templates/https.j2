@@ -33,7 +33,7 @@
     ssl_stapling_verify on;
     {% if linode_id is defined %}
     # use Linode internal DNS
-    resolver 109.74.192.20 109.74.193.20;
+    resolver 139.162.139.5 139.162.130.5 139.162.135.5;
     {% else %}
     resolver 8.8.8.8 8.8.4.4 [2001:4860:4860::8844] [2001:4860:4860::8888];
     {% endif %} {# end: linode_id #}
