@@ -8,6 +8,15 @@
 #  lineinfile: dest=/etc/hosts insertafter=^127.0.0.1 line='127.0.1.1       {{ inventory_hostname }}'
 #  tags: hostname
 
+- name: Set timezone
+  when: timezone is defined
+  command: /usr/bin/timedatectl set-timezone {{ timezone }}
+  tags: timezone
+
+- name: Enable NTP
+  command: /usr/bin/timedatectl set-ntp on
+  tags: ntp
+
 - include: packages_Ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
   tags: packages

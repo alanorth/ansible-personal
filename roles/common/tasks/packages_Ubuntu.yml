@@ -12,7 +12,6 @@
 - name: Install base packages
   apt: pkg={{ item }}
   with_items:
-    - ntp
     - git
     - tmux
     - iotop
