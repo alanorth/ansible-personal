@@ -2,19 +2,29 @@
 {% set domain_name       = item.domain_name %}
 {# assume HSTS is off unless a vhost explicitly sets it to "yes" #}
 {% set enable_hsts       = item.enable_hsts | default("no") %}
-{# use self-signed certs? yes on development, no on production #}
-{% set use_snakeoil_cert = item.use_snakeoil_cert | default("no") %}
+{# assume a vhost is not using Let's Encrypt unless it explicitly sets it to "yes" #}
+{% set use_letsencrypt = item.use_letsencrypt | default("no") %}
 
-    {# better to check for "not yes" then "no" #}
-    {% if use_snakeoil_cert != "yes" %}
+    {% if use_letsencrypt == "yes" %}
+
     # concatenated key + cert
     # See: http://nginx.org/en/docs/http/configuring_https_servers.html
-    ssl_certificate {{ tls_key_dir }}/{{ domain_name }}/fullchain.pem;
-    ssl_certificate_key {{ tls_key_dir }}/{{ domain_name }}/privkey.pem;
+    ssl_certificate {{ letsencrypt_root }}/{{ domain_name }}/fullchain.pem;
+    ssl_certificate_key {{ letsencrypt_root }}/{{ domain_name }}/privkey.pem;
+
+    {% elif item.tls_certificate_path and item.tls_key_path %}
+
+    # concatenated key + cert
+    # See: http://nginx.org/en/docs/http/configuring_https_servers.html
+    ssl_certificate {{ item.tls_certificate_path }};
+    ssl_certificate_key {{ item.tls_key_path }};
+
     {% else %}
+
     # "snakeoil" certificate (self signed!)
     ssl_certificate /etc/ssl/certs/nginx-snakeoil.crt;
     ssl_certificate_key /etc/ssl/private/nginx-snakeoil.key;
+
     {% endif %}
 
     ssl_session_timeout {{ nginx_ssl_session_timeout }};
@@ -27,7 +37,7 @@
     ssl_prefer_server_ciphers on;
 
     {# OSCP stapling only works with real certs #}
-    {% if use_snakeoil_cert != "yes" %}
+    {% if use_letsencrypt == "yes" or item.tls_certificate_path %}
     # OCSP stapling...
     ssl_stapling on;
     ssl_stapling_verify on;
@@ -37,7 +47,7 @@
     {% else %}
     resolver 8.8.8.8 8.8.4.4 [2001:4860:4860::8844] [2001:4860:4860::8888];
     {% endif %} {# end: linode_id #}
-    {% endif %} {# end: use_snakeoil_cert #}
+    {% endif %} {# end: use_letsencrypt #}
 
     # nginx does not auto-rotate session ticket keys: only a HUP / restart will do so and
     # when a restart is performed the previous key is lost, which resets all previous
