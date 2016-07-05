@@ -4,7 +4,7 @@
 {% set enable_hsts       = item.enable_hsts | default("no") %}
 
     {# first, check if the current vhost has a custom cert (perhaps self-signed) #}
-    {% if item.tls_certificate_path and item.tls_key_path %}
+    {% if item.tls_certificate_path is defined and item.tls_key_path is defined %}
 
     # concatenated key + cert
     # See: http://nginx.org/en/docs/http/configuring_https_servers.html
