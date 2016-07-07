@@ -1,5 +1,5 @@
 [Unit]
-Description=Daily renewal of Let's Encrypt's certificates
+Description=Renew Let's Encrypt certificates
 
 [Timer]
 # twice a day, at midnight and noon
