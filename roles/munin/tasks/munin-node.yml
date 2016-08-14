@@ -4,6 +4,7 @@
   when: ansible_os_family == "Ubuntu"
   with_items:
     - munin-node
+  tags: packages
 
 # some nice things to have for munin-node on Ubuntu
 - name: Install munin-node deps
@@ -11,6 +12,7 @@
   apt: name={{ item }} state=present
   with_items:
     - libwww-perl #for munin's nginx_status check
+  tags: packages
 
 - name: Create munin-node.conf
   template: src=munin-node.conf.j2 dest=/etc/munin/munin-node.conf

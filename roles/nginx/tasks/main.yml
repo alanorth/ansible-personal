@@ -1,15 +1,15 @@
 ---
 - name: Add nginx.org apt signing key
   apt_key: url=http://nginx.org/keys/nginx_signing.key state=present
-  tags: nginx
+  tags: nginx, packages
 
 - name: Add nginx.org repo
   template: src=nginx_org_sources.list.j2 dest=/etc/apt/sources.list.d/nginx_org_sources.list owner=root group=root mode=0644
-  tags: nginx
+  tags: nginx, packages
 
 - name: Install nginx
   apt: pkg=nginx update_cache=yes state=latest
-  tags: nginx
+  tags: nginx, packages
 
 - name: Copy nginx configs
   copy: src={{ item }} dest=/etc/nginx/{{ item }} mode=0644 owner=root group=root

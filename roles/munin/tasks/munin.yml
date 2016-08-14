@@ -4,6 +4,7 @@
   when: ansible_os_family == "Debian"
   with_items:
     - munin
+  tags: packages
 
 - name: Create munin configuration file
   template: src=munin.conf.j2 dest=/etc/munin/munin.conf owner=root group=root mode=0644

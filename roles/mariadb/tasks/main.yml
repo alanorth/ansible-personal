@@ -1,25 +1,25 @@
 ---
 - name: Add GPG key for MariaDB repo
   apt_key: id=0xcbcb082a1bb943db url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xcbcb082a1bb943db
-  tags: mariadb
+  tags: mariadb, packages
 
 - name: Remove old repo file
   file: path={{ item }} state=absent
   with_items:
     - /etc/apt/sources.list.d/sgp1_mirrors_digitalocean_com_mariadb_repo_10_1_debian.list
     - /etc/apt/sources.list.d/sgp1_mirrors_digitalocean_com_mariadb_repo_10_1_ubuntu.list
-  tags: mariadb
+  tags: mariadb, packages
 
 - name: Add MariaDB 10.1 repo
   template: src=mariadb.list.j2 dest=/etc/apt/sources.list.d/mariadb.list owner=root group=root mode=0644
-  tags: mariadb
+  tags: mariadb, packages
 
 - name: Install mariadb-server
   apt: name={{ item }} state=present update_cache=yes
   with_items:
     - mariadb-server
     - python-mysqldb # for ansible
-  tags: mariadb
+  tags: mariadb, packages
 
 - name: Create system my.cnf
   template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root group=root mode=0644

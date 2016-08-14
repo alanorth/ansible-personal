@@ -2,6 +2,7 @@
 - name: Install iptables-persistent
   when: ansible_distribution_version == '14.04'
   apt: pkg=iptables-persistent update_cache=yes
+  tags: packages
 
 - name: Copy /etc/iptables/rules.v4
   when: ansible_distribution_version == '14.04'
@@ -21,6 +22,7 @@
   with_items:
     - firewalld
     - tidy
+  tags: packages
 
 - name: Copy firewalld public zone file
   when: ansible_distribution_version >= '15.04'
