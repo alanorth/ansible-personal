@@ -33,7 +33,7 @@
   tags: wordpress
 
 - include: letsencrypt.yml
-  when: use_letsencrypt == 'yes'
+  when: use_letsencrypt is defined and use_letsencrypt == 'yes'
   tags: letsencrypt
 
 # vim: set ts=2 sw=2:
