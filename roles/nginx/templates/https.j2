@@ -31,7 +31,7 @@
     ssl_prefer_server_ciphers on;
 
     {# OSCP stapling only works with real certs #}
-    {% if use_letsencrypt == "yes" or item.tls_certificate_path %}
+    {% if use_letsencrypt == True or item.tls_certificate_path %}
     # OCSP stapling...
     ssl_stapling on;
     ssl_stapling_verify on;
