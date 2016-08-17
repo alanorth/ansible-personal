@@ -3,9 +3,9 @@
 {# helper variables and per-site defaults that we can't set in role defaults #}
 {% set domain_name    = item.domain_name %}
 {% set domain_aliases = item.domain_aliases | default("") %}
-{# assume HSTS is off unless a vhost explicitly sets it to "yes" #}
-{% set enable_hsts    = item.enable_hsts | default("no") %}
-{% set has_wordpress  = item.has_wordpress | default("no") %}
+{# assume HSTS is off unless a vhost explicitly sets it to True #}
+{% set enable_hsts    = item.enable_hsts | default(False) %}
+{% set has_wordpress  = item.has_wordpress | default(False) %}
 
 # http -> https vhost
 server {
@@ -37,7 +37,7 @@ server {
 
     {% include 'https.j2' %}
 
-    {% if has_wordpress == "yes" %}
+    {% if has_wordpress == True %}
         {% include 'wordpress.j2' %}
     {% endif %}
 
@@ -78,7 +78,7 @@ server {
         fastcgi_cache_bypass $http_pragma $wordpress_logged_in;
         fastcgi_no_cache $http_pragma $wordpress_logged_in;
 
-        {% if enable_hsts == "yes" %}
+        {% if enable_hsts == True %}
         # Enable this if you want HSTS (recommended, but be careful)
         # Include all subdomains and indicate to Google that we want this pre-loaded in Chrome's HSTS store
         # See: https://hstspreload.appspot.com/

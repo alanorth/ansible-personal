@@ -1,7 +1,7 @@
 {# helper variables and per-site defaults that we can't set in role defaults #}
 {% set domain_name       = item.domain_name %}
-{# assume HSTS is off unless a vhost explicitly sets it to "yes" #}
-{% set enable_hsts       = item.enable_hsts | default("no") %}
+{# assume HSTS is off unless a vhost explicitly sets it to True #}
+{% set enable_hsts       = item.enable_hsts | default(False) %}
 
     {# first, check if the current vhost has a custom cert (perhaps self-signed) #}
     {% if item.tls_certificate_path is defined and item.tls_key_path is defined %}
@@ -52,7 +52,7 @@
     # of such infrastructure, consider turning off session tickets:
     ssl_session_tickets off;
 
-    {% if enable_hsts == "yes" %}
+    {% if enable_hsts == True %}
     # Enable this if you want HSTS (recommended, but be careful)
     # Include all subdomains and indicate to Google that we want this pre-loaded in Chrome's HSTS store
     # See: https://hstspreload.appspot.com/
