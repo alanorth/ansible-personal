@@ -3,4 +3,5 @@ Description=Renew Let's Encrypt certificates
 
 [Service]
 Type=oneshot
+ConditionFileIsExecutable={{ letsencrypt_certbot_dest }}
 ExecStart={{ letsencrypt_certbot_dest }} renew --standalone --pre-hook "/bin/systemctl stop nginx" --post-hook "/bin/systemctl start nginx"
