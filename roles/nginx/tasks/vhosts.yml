@@ -21,7 +21,7 @@
   with_items: "{{ nginx_vhosts }}"
 
 - name: Install WordPress
-  git: repo=https://github.com/WordPress/WordPress.git dest={{ nginx_root_prefix }}/{{ item.domain_name }}/wordpress version={{ item.wordpress_version }} depth=1
+  git: repo=https://github.com/WordPress/WordPress.git dest={{ nginx_root_prefix }}/{{ item.domain_name }}/wordpress version={{ item.wordpress_version }} depth=1 force=yes
   when: item.has_wordpress == 'yes'
   with_items: "{{ nginx_vhosts }}"
   tags: wordpress
