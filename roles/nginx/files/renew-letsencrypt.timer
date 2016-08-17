@@ -2,8 +2,8 @@
 Description=Renew Let's Encrypt certificates
 
 [Timer]
-# once a day, at 2AM
-OnCalendar=*-*-* 02:00:00
+# twice a day, at midnight and noon
+OnCalendar=*-*-* 00,12:00:00
 # Add a random delay of 0–3600 seconds
 RandomizedDelaySec=3600
 Persistent=true
