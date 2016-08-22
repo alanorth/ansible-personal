@@ -14,7 +14,7 @@
   tags: timezone
 
 - name: Enable NTP
-  command: /usr/bin/timedatectl set-ntp on
+  service: name=systemd-timesyncd enabled=yes
   tags: ntp
 
 - include: packages_Ubuntu.yml
