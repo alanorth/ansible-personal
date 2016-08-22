@@ -1,6 +1,6 @@
 ---
 - name: Add nginx.org apt signing key
-  apt_key: url=http://nginx.org/keys/nginx_signing.key state=present
+  apt_key: url=https://nginx.org/keys/nginx_signing.key state=present
   tags: nginx, packages
 
 - name: Add nginx.org repo

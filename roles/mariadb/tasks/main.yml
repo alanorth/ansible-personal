@@ -1,6 +1,6 @@
 ---
 - name: Add GPG key for MariaDB repo
-  apt_key: id=0xF1656F24C74CD1D8 url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF1656F24C74CD1D8
+  apt_key: id=0xF1656F24C74CD1D8 url=https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF1656F24C74CD1D8
   tags: mariadb, packages
 
 - name: Remove old repo file
