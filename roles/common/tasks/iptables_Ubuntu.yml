@@ -1,7 +1,7 @@
 ---
 - name: Install iptables-persistent
   when: ansible_distribution_version == '14.04'
-  apt: pkg=iptables-persistent update_cache=yes
+  apt: pkg=iptables-persistent update_cache=yes cache_valid_time=3600
   tags: packages
 
 - name: Copy /etc/iptables/rules.v4

@@ -7,7 +7,7 @@
   when: ansible_distribution_version == '14.04'
 
 - name: Upgrade base OS
-  apt: upgrade=dist update_cache=yes
+  apt: upgrade=dist update_cache=yes cache_valid_time=3600
 
 - name: Install base packages
   apt: pkg={{ item }}
