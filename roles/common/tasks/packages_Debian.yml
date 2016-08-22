@@ -23,7 +23,4 @@
 - include: cron-apt.yml
   tags: cron-apt
 
-- name: Enable systemd-timesyncd
-  service: name=systemd-timesyncd state=started enabled=yes
-
 # vim: set sw=2 ts=2:
