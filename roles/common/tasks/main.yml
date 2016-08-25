@@ -8,8 +8,7 @@
   command: /usr/bin/timedatectl set-timezone {{ timezone }}
   tags: timezone
 
-- name: Enable NTP
-  service: name=systemd-timesyncd enabled=yes
+- include: ntp.yml
   tags: ntp
 
 - include: packages_{{ ansible_distribution }}.yml
