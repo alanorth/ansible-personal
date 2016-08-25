@@ -1,7 +1,7 @@
 ---
 - name: Install firewalld and deps
   when: ansible_distribution_major_version == '8'
-  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  apt: pkg={{ item }} state=latest
   with_items:
     - firewalld
     - tidy

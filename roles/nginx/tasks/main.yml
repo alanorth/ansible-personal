@@ -8,7 +8,7 @@
   tags: nginx, packages
 
 - name: Install nginx
-  apt: pkg=nginx update_cache=yes state=latest cache_valid_time=3600
+  apt: pkg=nginx update_cache=yes state=latest
   tags: nginx, packages
 
 - name: Copy nginx configs
