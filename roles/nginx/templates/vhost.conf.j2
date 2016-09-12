@@ -91,6 +91,7 @@ server {
     include extra-security.conf;
 }
 
+{% if has_wordpress == True %}
 # Check if a user is logged in
 # if so, set $wordpress_logged_in = 1
 # otherwise, set $wordpress_logged_in = 0
@@ -102,3 +103,4 @@ map $http_cookie $wordpress_logged_in {
 
     ~wordpress_logged_in 1;
 }
+{% endif %}
