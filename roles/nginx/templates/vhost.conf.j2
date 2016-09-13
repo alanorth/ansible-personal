@@ -47,6 +47,7 @@ server {
         root /usr/share/nginx/html;
     }
 
+    {% if has_wordpress == True or needs_php == True %}
     location ~ [^/]\.php(/|$) {
         # Zero-day exploit defense.
         # http://forum.nginx.org/read.php?2,88845,page=3
@@ -88,6 +89,7 @@ server {
 
         include extra-security.conf;
     }
+    {% endif %}
 
     include extra-security.conf;
 }
