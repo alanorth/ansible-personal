@@ -12,10 +12,11 @@
     - php7.0-xml
   tags: php-fpm, packages
 
+# only copy php-fpm config for vhosts that need WordPress or PHP
 - name: Copy php-fpm pool config
   template: src=php7.0-pool.conf.j2 dest=/etc/php/7.0/fpm/pool.d/{{ item.domain_name }}.conf owner=root group=root mode=0644
   with_items: "{{ nginx_vhosts }}"
-  when: nginx_vhosts is defined
+  when: (item.has_wordpress is defined and item.has_wordpress == True) or (item.needs_php is defined and item.needs_php == True)
   notify: restart php7.0-fpm
   tags: php-fpm
 
