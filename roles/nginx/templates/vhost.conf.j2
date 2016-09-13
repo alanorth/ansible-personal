@@ -6,6 +6,7 @@
 {# assume optional features are off unless a vhost explicitly sets them #}
 {% set enable_hsts    = item.enable_hsts | default(False) %}
 {% set has_wordpress  = item.has_wordpress | default(False) %}
+{% set needs_php      = item.needs_php | default(False) %}
 
 # http -> https vhost
 server {
