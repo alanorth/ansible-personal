@@ -31,7 +31,7 @@ server {
     {# will only work if the TLS cert covers the domain + aliases, like example.com and www.example.com #}
     server_name {{ domain_name }} {{ domain_aliases }};
 
-    index index.php index.html;
+    index {% if has_wordpress == True or needs_php == True %}index.php{% else %}index.html{% endif %};
 
     access_log  /var/log/nginx/{{ domain_name }}-access.log;
     error_log   /var/log/nginx/{{ domain_name }}-error.log;
