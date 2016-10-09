@@ -19,4 +19,48 @@
 - name: Download certbot
   get_url: dest={{ letsencrypt_certbot_dest }} url=https://dl.eff.org/certbot-auto mode=700
 
+# dependencies certbot checks for on its first run
+# taken from running certbot right after a clean Ubuntu 16.04 install
+- name: Install certbot dependencies (Ubuntu 16.04)
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - augeas-doc
+    - augeas-tools
+    - binutils
+    - cpp
+    - cpp-5
+    - dialog
+    - gcc
+    - gcc-5
+    - libasan2
+    - libatomic1
+    - libcc1-0
+    - libcilkrts5
+    - libexpat1-dev
+    - libgcc-5-dev
+    - libgomp1
+    - libffi-dev
+    - libisl15
+    - libitm1
+    - liblsan0
+    - libmpc3
+    - libmpx0
+    - libpython-dev
+    - libpython2.7
+    - libpython2.7-dev
+    - libquadmath0
+    - libssl-dev
+    - libtsan0
+    - libubsan0
+    - python-pip-whl
+    - python-pkg-resources
+    - python2.7-dev
+    - python3-virtualenv
+    - python-dev
+    - python-virtualenv
+    - virtualenv
+    - zlib1g-dev
+  tags: packages
+
 # vim: set ts=2 sw=2:
