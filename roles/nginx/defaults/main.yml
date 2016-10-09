@@ -16,6 +16,10 @@ nginx_ssl_buffer_size: 1400
 nginx_ssl_dhparam: /etc/ssl/certs/dhparam.pem
 nginx_ssl_protocols: 'TLSv1 TLSv1.1 TLSv1.2'
 
+# install certbot + dependencies?
+# True unless you're in development and using "localhost" + snakeoil certs
+use_letsencrypt: True
+
 # Directory root for Let's Encrypt certs
 letsencrypt_root: /etc/letsencrypt/live
 
