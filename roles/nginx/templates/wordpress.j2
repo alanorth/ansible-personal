@@ -4,10 +4,24 @@
     # also serves static files from the disk instead of passing to interpreter.
     location / {
         try_files $uri $uri/ /index.php?$args;
+
+        {% if enable_hsts == True %}
+        # Enable this if you want HSTS (recommended, but be careful)
+        # Include all subdomains and indicate to Google that we want this pre-loaded in Chrome's HSTS store
+        # See: https://hstspreload.appspot.com/
+        add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload" always;
+        {% endif %}
     }
 
     location ~* \.(?:ico|css|js|gif|jpe?g|png|svg)$ {
         add_header Cache-Control "max-age=604800";
+
+        {% if enable_hsts == True %}
+        # Enable this if you want HSTS (recommended, but be careful)
+        # Include all subdomains and indicate to Google that we want this pre-loaded in Chrome's HSTS store
+        # See: https://hstspreload.appspot.com/
+        add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload" always;
+        {% endif %}
     }   
 
     # Add trailing slash to */wp-admin requests.
