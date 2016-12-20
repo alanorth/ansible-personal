@@ -63,7 +63,7 @@ server {
         # See: https://httpoxy.org/
         fastcgi_param HTTP_PROXY "";
 
-        {% if ansible_distribution_version == '16.04' %}
+        {% if ansible_distribution_version | version_compare('16.04', '==') %}
         fastcgi_pass unix:/run/php/php7.0-fpm-{{ domain_name }}.sock;
         {% else %}
         fastcgi_pass unix:/var/run/php5-fpm-{{ domain_name }}.sock;

@@ -1,23 +1,23 @@
 ---
 - name: Install iptables-persistent
-  when: ansible_distribution_version == '14.04'
+  when: ansible_distribution_version | version_compare('14.04', '==')
   apt: pkg=iptables-persistent update_cache=yes
   tags: packages
 
 - name: Copy /etc/iptables/rules.v4
-  when: ansible_distribution_version == '14.04'
+  when: ansible_distribution_version | version_compare('14.04', '==')
   template: src=iptables.j2 dest=/etc/iptables/rules.v4 owner=root mode=0600
   notify:
     - restart iptables-persistent
 
 - name: Copy /etc/iptables/rules.v6
-  when: ansible_distribution_version == '14.04'
+  when: ansible_distribution_version | version_compare('14.04', '==')
   template: src=ip6tables.j2 dest=/etc/iptables/rules.v6 owner=root group=root mode=0600
   notify:
     - restart iptables-persistent
 
 - name: Install firewalld and deps
-  when: ansible_distribution_version >= '15.04'
+  when: ansible_distribution_version | version_compare('15.04', '>=')
   apt: pkg={{ item }} state=latest
   with_items:
     - firewalld
@@ -25,11 +25,11 @@
   tags: packages
 
 - name: Copy firewalld public zone file
-  when: ansible_distribution_version >= '15.04'
+  when: ansible_distribution_version | version_compare('15.04', '>=')
   template: src=public.xml.j2 dest=/etc/firewalld/zones/public.xml owner=root mode=0600
 
 - name: Format public.xml firewalld zone file
-  when: ansible_distribution_version >= '15.04'
+  when: ansible_distribution_version | version_compare('15.04', '>=')
   shell: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
   notify:
     - restart firewalld
