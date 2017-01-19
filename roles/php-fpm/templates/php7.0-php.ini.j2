@@ -686,7 +686,6 @@ default_charset = "UTF-8"
 
 ; PHP output character encoding is set to empty.
 ; If empty, default_charset is used.
-; mbstring or iconv output handler is used.
 ; See also output_buffer.
 ; http://php.net/output-encoding
 ;output_encoding =
@@ -758,7 +757,12 @@ enable_dl = Off
 ; of zero causes PHP to behave as before.  Default is 1.  You should fix your scripts
 ; to use SCRIPT_FILENAME rather than PATH_TRANSLATED.
 ; http://php.net/cgi.fix-pathinfo
-cgi.fix_pathinfo={{ cgi_fix_pathinfo }}
+;cgi.fix_pathinfo=1
+
+; if cgi.discard_path is enabled, the PHP CGI binary can safely be placed outside
+; of the web tree and people will not be able to circumvent .htaccess security.
+; http://php.net/cgi.dicard-path
+;cgi.discard_path=1
 
 ; FastCGI under IIS (on WINNT based OS) supports the ability to impersonate
 ; security tokens of the calling client.  This allows IIS to define the
@@ -779,6 +783,13 @@ cgi.fix_pathinfo={{ cgi_fix_pathinfo }}
 ; Default is zero.
 ; http://php.net/cgi.rfc2616-headers
 ;cgi.rfc2616_headers = 0
+
+; cgi.check_shebang_line controls whether CGI PHP checks for line starting with #!
+; (shebang) at the top of the running script. This line might be needed if the
+; script support running both as stand-alone script and via PHP CGI<. PHP in CGI
+; mode skips this line and ignores its content if this directive is turned on.
+; http://php.net/cgi.check-shebang-line
+;cgi.check_shebang_line=1
 
 ;;;;;;;;;;;;;;;;
 ; File Uploads ;
@@ -866,6 +877,7 @@ default_socket_timeout = 60
 ;extension=php_bz2.dll
 ;extension=php_curl.dll
 ;extension=php_fileinfo.dll
+;extension=php_ftp.dll
 ;extension=php_gd2.dll
 ;extension=php_gettext.dll
 ;extension=php_gmp.dll
@@ -956,6 +968,7 @@ date.timezone = {{ timezone }}
 ; happens within intl functions. The value is the level of the error produced.
 ; Default is 0, which does not produce any errors.
 ;intl.error_level = E_WARNING
+;intl.use_exceptions = 0
 
 [sqlite3]
 ;sqlite3.extension_dir =
@@ -1840,6 +1853,11 @@ opcache.fast_shutdown={{ opcache_fast_shutdown }}
 
 ; Enables or disables checksum validation when script loaded from file cache.
 ;opcache.file_cache_consistency_checks=1
+
+; Implies opcache.file_cache_only=1 for a certain process that failed to
+; reattach to the shared memory (for Windows only). Explicitly enabled file
+; cache is required.
+;opcache.file_cache_fallback=1
 
 ; Enables or disables copying of PHP code (text segment) into HUGE PAGES.
 ; This should improve performance, but requires appropriate OS configuration.
