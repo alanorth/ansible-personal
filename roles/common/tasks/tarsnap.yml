@@ -1,0 +1,12 @@
+---
+- name: Add Tarsnap apt mirror
+  template: src=tarsnap_sources.list.j2 dest=/etc/apt/sources.list.d/tarsnap.list owner=root group=root mode=0644
+  when: ansible_architecture != 'armv7l'
+
+- name: Add GPG key for Tarsnap
+  apt_key: id=0x40B98B68F04DE775 url=https://pkg.tarsnap.com/tarsnap-deb-packaging-key.asc state=present
+
+- name: Install tarsnap
+  apt: pkg=tarsnap
+
+# vim: set sw=2 ts=2:

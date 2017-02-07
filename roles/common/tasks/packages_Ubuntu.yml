@@ -46,4 +46,6 @@
 - include: cron-apt.yml
   tags: cron-apt
 
+- include: tarsnap.yml
+
 # vim: set sw=2 ts=2:
