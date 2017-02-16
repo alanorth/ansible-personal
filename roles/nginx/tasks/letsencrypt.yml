@@ -38,9 +38,9 @@
     - libcc1-0
     - libcilkrts5
     - libexpat1-dev
+    - libffi-dev
     - libgcc-5-dev
     - libgomp1
-    - libffi-dev
     - libisl15
     - libitm1
     - liblsan0
@@ -53,12 +53,12 @@
     - libssl-dev
     - libtsan0
     - libubsan0
+    - python-dev
     - python-pip-whl
     - python-pkg-resources
+    - python-virtualenv
     - python2.7-dev
     - python3-virtualenv
-    - python-dev
-    - python-virtualenv
     - virtualenv
     - zlib1g-dev
   tags: packages
