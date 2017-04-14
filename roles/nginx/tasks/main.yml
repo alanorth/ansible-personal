@@ -1,18 +1,9 @@
 ---
-# There is no nginx.org build for Debian 9 (stretch) yet, so we will use the
-# builds in Debian's own repositories for now. This creates a few problems
-# in this playbook, and we need to remember to undo these workarounds when
-# the Debian stretch builds become available.
-#
-# See: https://nginx.org/packages/mainline/debian/dists/
-
 - name: Add nginx.org apt signing key
-  when: ansible_distribution_major_version | version_compare('9', '!=')
   apt_key: id=0x573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 url=https://nginx.org/keys/nginx_signing.key state=present
   tags: nginx, packages
 
 - name: Add nginx.org repo
-  when: ansible_distribution_major_version | version_compare('9', '!=')
   template: src=nginx_org_sources.list.j2 dest=/etc/apt/sources.list.d/nginx_org_sources.list owner=root group=root mode=0644
   tags: nginx, packages
 
@@ -40,13 +31,7 @@
   tags: nginx
 
 - name: Create fastcgi cache dir
-  when: ansible_distribution_major_version | version_compare('9', '!=')
   file: path=/var/cache/nginx/cached/fastcgi state=directory owner=nginx group=nginx mode=0755
-  tags: nginx
-
-- name: Create fastcgi cache dir
-  when: ansible_distribution_major_version | version_compare('9', '==')
-  file: path=/var/cache/nginx/cached/fastcgi state=directory owner=www-data group=www-data mode=0755
   tags: nginx
 
 - include: vhosts.yml

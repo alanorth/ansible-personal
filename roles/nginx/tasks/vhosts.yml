@@ -17,13 +17,7 @@
     - reload nginx
 
 - name: Create vhost document roots
-  when: ansible_distribution_major_version | version_compare('9', '!=')
   file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory mode=0755 owner=nginx group=nginx
-  with_items: "{{ nginx_vhosts }}"
-
-- name: Create vhost document roots
-  when: ansible_distribution_major_version | version_compare('9', '==')
-  file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory mode=0755 owner=www-data group=www-data
   with_items: "{{ nginx_vhosts }}"
 
 - name: Install WordPress
@@ -34,13 +28,7 @@
 
 - name: Fix WordPress directory permissions
   file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory owner=nginx group=nginx recurse=yes
-  when: item.has_wordpress is defined and item.has_wordpress == True and ansible_distribution_major_version | version_compare('9', '!=')
-  with_items: "{{ nginx_vhosts }}"
-  tags: wordpress
-
-- name: Fix WordPress directory permissions
-  file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory owner=www-data group=www-data recurse=yes
-  when: item.has_wordpress is defined and item.has_wordpress == True and ansible_distribution_major_version | version_compare('9', '==')
+  when: item.has_wordpress is defined and item.has_wordpress == True
   with_items: "{{ nginx_vhosts }}"
   tags: wordpress
 
