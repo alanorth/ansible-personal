@@ -8,10 +8,10 @@ deb http://nginx.org/packages/mainline/ubuntu/ {{ ansible_distribution_release }
 {% endif %}
 {% endif %}
 
-{% if ansible_distribution == 'Debian' and ansible_distribution_release == 'jessie' %}
+{% if ansible_distribution == 'Debian' %}
 {% if nginx_version == "stable" %}
-deb http://nginx.org/packages/debian/ jessie nginx
+deb http://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
 {% elif nginx_version == "mainline" %}
-deb http://nginx.org/packages/mainline/debian/ jessie nginx
+deb http://nginx.org/packages/mainline/debian/ {{ ansible_distribution_release }} nginx
 {% endif %}
 {% endif %}
