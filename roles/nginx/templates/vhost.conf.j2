@@ -63,7 +63,8 @@ server {
         # See: https://httpoxy.org/
         fastcgi_param HTTP_PROXY "";
 
-        {% if ansible_distribution_version | version_compare('16.04', '==') %}
+        {# As of Ubuntu 16.04 and Debian 9, the PHP-FPM configs are the same #}
+        {% if (ansible_distribution == 'Ubuntu' and ansible_distribution_version | version_compare('16.04', '==')) or (ansible_distribution == 'Debian' and ansible_distribution_major_version | version_compare('9', '==')) %}
         fastcgi_pass unix:/run/php/php7.0-fpm-{{ domain_name }}.sock;
         {% else %}
         fastcgi_pass unix:/var/run/php5-fpm-{{ domain_name }}.sock;
