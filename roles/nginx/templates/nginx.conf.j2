@@ -1,10 +1,6 @@
 
 # Run as a unique, less privileged user for security reasons.
-{% if ansible_distribution == 'Debian' and ansible_distribution_major_version | version_compare('9', '==') %}
-user  www-data;
-{% else %}
 user nginx;
-{% endif %}
 
 # Sets the worker threads to the number of CPU cores available in the system for best performance.
 # Should be > the number of CPU cores.

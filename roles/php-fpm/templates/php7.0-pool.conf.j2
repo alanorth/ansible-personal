@@ -22,13 +22,8 @@
 ; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
-{% if ansible_distribution == 'Debian' and ansible_distribution_major_version | version_compare('9', '==') %}
-user = www-data
-group = www-data
-{% else %}
 user = nginx
 group = nginx
-{% endif %}
 
 ; The address on which to accept FastCGI requests.
 ; Valid syntaxes are:
@@ -49,13 +44,8 @@ listen = /run/php/php7.0-fpm-{{ domain_name }}.sock
 ; BSD-derived systems allow connections regardless of permissions.
 ; Default Values: user and group are set as the running user
 ;                 mode is set to 0660
-{% if ansible_distribution == 'Debian' and ansible_distribution_major_version | version_compare('9', '==') %}
-listen.owner = www-data
-listen.group = www-data
-{% else %}
 listen.owner = nginx
 listen.group = nginx
-{% endif %}
 ;listen.mode = 0660
 ; When POSIX Access Control Lists are supported you can set them using
 ; these options, value is a comma separated list of user/group names.
