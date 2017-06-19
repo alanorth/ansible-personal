@@ -8,8 +8,9 @@ Port 22
 #ListenAddress 0.0.0.0
 Protocol 2
 # HostKeys for protocol version 2
-HostKey /etc/ssh/ssh_host_rsa_key
+# Supported HostKey algorithms by order of preference.
 HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
 #Privilege Separation is turned on for security
 UsePrivilegeSeparation yes
 
@@ -19,12 +20,15 @@ ServerKeyBits 1024
 
 # Logging
 SyslogFacility AUTH
-LogLevel INFO
+# LogLevel VERBOSE logs user's key fingerprint on login. Needed to have a clear audit track of which key was using to log in.
+LogLevel VERBOSE
 
 # Authentication:
 LoginGraceTime 120
 PermitRootLogin prohibit-password
 StrictModes yes
+# Password based logins are disabled - only public key based logins are allowed.
+AuthenticationMethods publickey
 
 RSAAuthentication yes
 PubkeyAuthentication yes
