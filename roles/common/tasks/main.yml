@@ -3,16 +3,16 @@
 #  lineinfile: dest=/etc/hosts insertafter=^127.0.0.1 line='127.0.1.1       {{ inventory_hostname }}'
 #  tags: hostname
 
-- include: ntp.yml
+- import_tasks: ntp.yml
   tags: ntp
 
-- include: packages_{{ ansible_distribution }}.yml
+- include_tasks: packages_{{ ansible_distribution }}.yml
   tags: packages
 
-- include: iptables_{{ ansible_distribution }}.yml
+- include_tasks: iptables_{{ ansible_distribution }}.yml
   tags: firewall
 
-- include: sshd.yml
+- import_tasks: sshd.yml
   tags: sshd
 
 # containers identify as virtualization hosts, which makes this tricky, because we have actual Debian VM hosts!
@@ -31,7 +31,7 @@
   template: src=etc/udev/rules.d/60-scheduler.rules.j2 dest=/etc/udev/rules.d/60-scheduler.rules owner=root group=root mode=0644
   tags: udev
 
-- include: ssh-keys.yml
+- import_tasks: ssh-keys.yml
   tags: ssh-keys
 
 # vim: set sw=2 ts=2:

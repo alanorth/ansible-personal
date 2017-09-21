@@ -1,6 +1,6 @@
 ---
-- include: munin.yml
+- import_tasks: munin.yml
   tags: munin
 
-- include: munin-node.yml
+- import_tasks: munin-node.yml
   tags: munin-node

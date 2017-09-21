@@ -20,9 +20,9 @@
     - lrzip
     - unzip
 
-- include: cron-apt.yml
+- import_tasks: cron-apt.yml
   tags: cron-apt
 
-- include: tarsnap.yml
+- import_tasks: tarsnap.yml
 
 # vim: set sw=2 ts=2:

@@ -2,11 +2,11 @@
 # Note: Debian 9's php-fpm config is identical to Ubuntu 16.04's, so for now we
 # can capitalize on that and use the same tasks.
 
-- include: Debian.yml
+- import_tasks: Debian.yml
   when: ansible_distribution == 'Debian' and ansible_distribution_major_version | version_compare('9', '<')
   tags: php-fpm
 
-- include: Ubuntu.yml
+- import_tasks: Ubuntu.yml
   when: ansible_distribution == 'Ubuntu' or (ansible_distribution == 'Debian' and ansible_distribution_major_version | version_compare('9', '=='))
   tags: php-fpm
 

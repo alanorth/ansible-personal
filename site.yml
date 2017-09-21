@@ -1,6 +1,6 @@
 ---
 # file: site.yml
 
-- include: web.yml
+- import_playbook: web.yml
 
 # vim: set sw=2 ts=2:
