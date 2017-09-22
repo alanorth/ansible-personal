@@ -1,7 +1,4 @@
 ---
-#- name: Add hostname to /etc/hosts
-#  lineinfile: dest=/etc/hosts insertafter=^127.0.0.1 line='127.0.1.1       {{ inventory_hostname }}'
-#  tags: hostname
 
 - import_tasks: ntp.yml
   tags: ntp
