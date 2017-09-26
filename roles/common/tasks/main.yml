@@ -6,7 +6,7 @@
 - include_tasks: packages_{{ ansible_distribution }}.yml
   tags: packages
 
-- include_tasks: iptables_{{ ansible_distribution }}.yml
+- include_tasks: firewall_{{ ansible_distribution }}.yml
   tags: firewall
 
 - import_tasks: sshd.yml
