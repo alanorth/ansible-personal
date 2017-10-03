@@ -43,9 +43,11 @@
     - command-not-found-data
     - python3-commandnotfound
 
-- import_tasks: cron-apt.yml
+- name: Configure cron-apt
+  import_tasks: cron-apt.yml
   tags: cron-apt
 
-- import_tasks: tarsnap.yml
+- name: Install tarsnap
+  import_tasks: tarsnap.yml
 
 # vim: set sw=2 ts=2:
