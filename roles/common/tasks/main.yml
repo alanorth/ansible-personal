@@ -1,15 +1,19 @@
 ---
 
-- import_tasks: ntp.yml
+- name: Configure network time
+  import_tasks: ntp.yml
   tags: ntp
 
-- include_tasks: packages_{{ ansible_distribution }}.yml
+- name: Install common packages
+  include_tasks: packages_{{ ansible_distribution }}.yml
   tags: packages
 
-- include_tasks: firewall_{{ ansible_distribution }}.yml
+- name: Configure firewall
+  include_tasks: firewall_{{ ansible_distribution }}.yml
   tags: firewall
 
-- import_tasks: sshd.yml
+- name: Configure secure shell daemon
+  import_tasks: sshd.yml
   tags: sshd
 
 # containers identify as virtualization hosts, which makes this tricky, because we have actual Debian VM hosts!
@@ -28,7 +32,8 @@
   template: src=etc/udev/rules.d/60-scheduler.rules.j2 dest=/etc/udev/rules.d/60-scheduler.rules owner=root group=root mode=0644
   tags: udev
 
-- import_tasks: ssh-keys.yml
+- name: Copy admin SSH keys
+  import_tasks: ssh-keys.yml
   tags: ssh-keys
 
 # vim: set sw=2 ts=2:
