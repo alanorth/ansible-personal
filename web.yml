@@ -3,7 +3,7 @@
 
 - name: Configure web servers
   hosts: web
-  user: provisioning
+  remote_user: provisioning
   become: yes
   roles:
     - { role: common, when: ansible_os_family == 'Debian' }
