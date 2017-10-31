@@ -1,6 +1,6 @@
 ---
 - name: Install munin-node
-  apt: name={{ item }} state=latest
+  apt: name={{ item }} state=present
   when: ansible_os_family == "Ubuntu"
   with_items:
     - munin-node
