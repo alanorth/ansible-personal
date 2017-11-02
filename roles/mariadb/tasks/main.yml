@@ -21,7 +21,7 @@
   tags: mariadb
 
 - name: Start and enable MariaDB Service
-  service: name=mysql state=started enabled=true
+  systemd: name=mysql state=started enabled=yes
   tags: mariadb
 
 # 'localhost' needs to be the last item for idempotency, see
