@@ -4,7 +4,7 @@
   service: name=php5-fpm state=restarted
 
 # For Ubuntu 16.04
-- name: restart php7.0-fpm
-  systemd: name=php7.0-fpm state=restarted
+- name: reload php7.0-fpm
+  systemd: name=php7.0-fpm state=reloaded
 
 # vim: set ts=2 sw=2:

@@ -17,18 +17,18 @@
   template: src=php7.0-pool.conf.j2 dest=/etc/php/7.0/fpm/pool.d/{{ item.domain_name }}.conf owner=root group=root mode=0644
   with_items: "{{ nginx_vhosts }}"
   when: (item.has_wordpress is defined and item.has_wordpress == True) or (item.needs_php is defined and item.needs_php == True)
-  notify: restart php7.0-fpm
+  notify: reload php7.0-fpm
   tags: php-fpm
 
 - name: Remove default www pool
   file: path=/etc/php/7.0/fpm/pool.d/www.conf state=absent
-  notify: restart php7.0-fpm
+  notify: reload php7.0-fpm
   tags: php-fpm
 
 # re-configure php.ini
 - name: Update php.ini
   template: src=php7.0-php.ini.j2 dest=/etc/php/7.0/fpm/php.ini owner=root group=root mode=0644
-  notify: restart php7.0-fpm
+  notify: reload php7.0-fpm
   tags: php-fpm
 
 # vim: set ts=2 sw=2:
