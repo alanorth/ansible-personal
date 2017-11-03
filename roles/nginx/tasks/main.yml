@@ -52,7 +52,7 @@
   tags: nginx
 
 - name: Start and enable nginx service
-  service: name=nginx state=started enabled=yes
+  systemd: name=nginx state=started enabled=yes
   tags: nginx
 
 # vim: set ts=2 sw=2:

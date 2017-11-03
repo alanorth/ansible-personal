@@ -1,5 +1,5 @@
 ---
 - name: reload nginx
-  service: name=nginx state=reloaded
+  systemd: name=nginx state=reloaded
 
 # vim: set ts=2 sw=2:
