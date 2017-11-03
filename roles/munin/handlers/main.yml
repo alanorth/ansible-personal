@@ -1,4 +1,4 @@
 ---
 # file: roles/munin/handlers/main.yml
 - name: restart munin-node
-  service: name=munin-node state=restarted
+  systemd: name=munin-node state=restarted
