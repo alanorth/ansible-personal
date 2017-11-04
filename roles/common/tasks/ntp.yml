@@ -19,7 +19,7 @@
 
 - name: Install ntp on old Ubuntu/Debian
   apt: name=ntp state=present update_cache=yes
-  when: and ansible_service_mgr != 'systemd'
+  when: ansible_service_mgr != 'systemd'
   tags: packages
 
 # vim: set ts=2 sw=2:
