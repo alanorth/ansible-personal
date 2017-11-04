@@ -25,6 +25,7 @@
     - vim
     - lrzip
     - unzip
+    - apt-transport-https # for https support in apt
 
 - name: Security hardening (CIS Benchmark 1.0)
   apt: pkg={{ item }} state=absent purge=yes

@@ -19,6 +19,7 @@
     - vim
     - lrzip
     - unzip
+    - apt-transport-https # for https support in apt
 
 - name: Configure cron-apt
   import_tasks: cron-apt.yml
