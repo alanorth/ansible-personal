@@ -16,7 +16,7 @@ deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }}-updates m
 deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
 
 {% else %}
-{% set apt_mirror    = apt_mirror | default('httpredir.debian.org') %}
+{% set apt_mirror    = apt_mirror | default('deb.debian.org') %}
 deb http://{{ apt_mirror }}/debian/ {{ ansible_distribution_release }} main contrib non-free
 
 deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
