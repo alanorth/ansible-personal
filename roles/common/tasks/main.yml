@@ -10,23 +10,11 @@
   tags: ntp
 
 - name: Install common packages
-  import_tasks: packages_Debian.yml
-  when: ansible_distribution == 'Debian'
-  tags: packages
-
-- name: Install common packages
-  import_tasks: packages_Ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  include_tasks: packages_{{ ansible_distribution }}.yml
   tags: packages
 
 - name: Configure firewall
-  import_tasks: firewall_Debian.yml
-  when: ansible_distribution == 'Debian'
-  tags: firewall
-
-- name: Configure firewall
-  import_tasks: firewall_Ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  include_tasks: firewall_{{ ansible_distribution }}.yml
   tags: firewall
 
 - name: Configure secure shell daemon
