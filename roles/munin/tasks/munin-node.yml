@@ -1,14 +1,12 @@
 ---
 - name: Install munin-node
   apt: name={{ item }} state=present
-  when: ansible_os_family == "Ubuntu"
   with_items:
     - munin-node
   tags: packages
 
 # some nice things to have for munin-node on Ubuntu
 - name: Install munin-node deps
-  when: ansible_os_family == "Ubuntu"
   apt: name={{ item }} state=present
   with_items:
     - libwww-perl #for munin's nginx_status check
