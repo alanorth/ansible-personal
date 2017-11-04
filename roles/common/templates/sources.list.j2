@@ -15,11 +15,6 @@ deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }}-updates m
 ###### Ubuntu Partner Repo
 deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
 
-{% if ansible_distribution_version | version_compare('14.04', '==') %}
-{# extras repo was discontinued after 14.10, but the latest we deploy is 14.04 #}
-###### Ubuntu Extras Repo
-deb http://extras.ubuntu.com/ubuntu {{ ansible_distribution_release }} main
-{% endif %}
 {% else %}
 {% set apt_mirror    = apt_mirror | default('httpredir.debian.org') %}
 deb http://{{ apt_mirror }}/debian/ {{ ansible_distribution_release }} main contrib non-free
