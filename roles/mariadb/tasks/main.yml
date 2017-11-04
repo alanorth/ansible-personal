@@ -20,10 +20,6 @@
     - restart mysql
   tags: mariadb
 
-- name: Start and enable MariaDB Service
-  systemd: name=mysql state=started enabled=yes
-  tags: mariadb
-
 # 'localhost' needs to be the last item for idempotency, see
 # https://docs.ansible.com/ansible/latest/mysql_user_module.html
 - name: Update MariaDB root password for all root accounts
