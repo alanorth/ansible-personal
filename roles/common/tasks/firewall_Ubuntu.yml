@@ -30,6 +30,6 @@
 
 - name: Format public.xml firewalld zone file
   when: ansible_distribution_version | version_compare('15.04', '>=')
-  shell: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
+  command: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
   notify:
     - reload firewalld
