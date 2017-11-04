@@ -6,11 +6,11 @@
   remote_user: provisioning
   become: yes
   roles:
-    - { role: common, when: ansible_os_family == 'Debian' }
-    - { role: mariadb, when: ansible_os_family == 'Debian' }
-    - { role: nginx, when: ansible_os_family == 'Debian' }
-    - { role: php-fpm, when: ansible_os_family == 'Debian' }
-    - { role: munin, when: ansible_os_family == 'Debian' }
+    - common
+    - mariadb
+    - nginx
+    - php-fpm
+    - munin
   vars_files:
     - vars/ipsets.yml
     - "vars/{{ ansible_os_family }}.yml"
