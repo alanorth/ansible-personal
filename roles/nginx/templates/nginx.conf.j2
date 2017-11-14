@@ -69,7 +69,10 @@ http {
     gzip_min_length 256;
 
     gzip_http_version 1.1;
+
     # Compress all output labeled with one of the following MIME-types.
+    # text/html is always compressed by gzip module.
+    # Default: text/html
     gzip_types
       application/atom+xml
       application/javascript
@@ -95,7 +98,6 @@ http {
       text/vtt
       text/x-component
       text/x-cross-domain-policy;
-    # text/html is always compressed by gzip module
 
     client_max_body_size 12m;
 
