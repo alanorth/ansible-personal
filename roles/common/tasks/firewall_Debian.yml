@@ -1,7 +1,7 @@
 ---
 - name: Install firewalld and deps
   when: ansible_distribution_major_version | version_compare('8', '>=')
-  apt: pkg={{ item }} state=latest
+  apt: pkg={{ item }} state=present
   with_items:
     - firewalld
     - tidy
