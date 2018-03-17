@@ -1,7 +1,12 @@
 # {{ ansible_managed }}
 {% if ansible_distribution == 'Ubuntu' %}
 
+{% if ansible_distribution_release == 'bionic' %}
+# 2018-03-17: no Ubuntu 18.04 "bionic" packages yet, so use 17.10 "artful"
+deb [arch=amd64,i386] http://mariadb.mirror.serveriai.lt/repo/10.2/ubuntu artful main
+{% else %}
 deb [arch=amd64,i386] http://mariadb.mirror.serveriai.lt/repo/10.2/ubuntu {{ ansible_distribution_release }} main
+{% endif %}
 
 {% elif ansible_distribution == 'Debian' %}
 
