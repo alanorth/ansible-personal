@@ -1,6 +1,6 @@
 ---
 # Note: Debian 9's php-fpm config is identical to Ubuntu 16.04's, so for now we
-# can capitalize on that and use the same tasks.
+# can capitalize on that and use the same tasks. Ubuntu 18.04 uses php-fpm 7.2.
 
 - name: Configure php-fpm on Ubuntu 16.04 and Debian 9
   include_tasks: Ubuntu.yml
