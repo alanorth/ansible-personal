@@ -3,4 +3,8 @@
 - name: reload php7.0-fpm
   systemd: name=php7.0-fpm state=reloaded
 
+# For Ubuntu 18.04
+- name: reload php7.2-fpm
+  systemd: name=php7.2-fpm state=reloaded
+
 # vim: set ts=2 sw=2:
