@@ -1,4 +1,4 @@
-{% if ansible_distribution_version | version_compare('18.04', '==') %}
+{% if ansible_distribution_version is version_compare('18.04', '==') %}
 # 2018-03-17: no Ubuntu 18.04 "bionic" packages yet, so use 17.10 "artful"
 deb https://pkg.tarsnap.com/deb/artful ./
 {% else %}
