@@ -16,7 +16,7 @@
 # dependencies certbot checks for on its first run
 # taken from running certbot right after a clean Ubuntu 16.04 install
 - name: Install certbot dependencies (Ubuntu 16.04)
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version | version_compare('16.04', '==')
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('16.04', '==')
   apt: name={{ item }} state=present update_cache=yes
   with_items:
     - augeas-doc
@@ -60,7 +60,7 @@
 # dependencies certbot checks for on its first run
 # taken from running certbot right after a clean Debian 9 install
 - name: Install certbot dependencies (Debian 9)
-  when: ansible_distribution == 'Debian' and ansible_distribution_major_version | version_compare('9', '==')
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('9', '==')
   apt: name={{ item }} state=present update_cache=yes
   with_items:
     - augeas-doc

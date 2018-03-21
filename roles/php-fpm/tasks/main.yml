@@ -4,7 +4,7 @@
 
 - name: Configure php-fpm on Ubuntu and Debian 9
   import_tasks: Ubuntu.yml
-  when: ansible_distribution == 'Ubuntu' or (ansible_distribution == 'Debian' and ansible_distribution_major_version | version_compare('9', '=='))
+  when: ansible_distribution == 'Ubuntu' or (ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('9', '=='))
   tags: php-fpm
 
 # vim: set ts=2 sw=2:
