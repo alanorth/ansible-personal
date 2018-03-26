@@ -20,7 +20,7 @@ Once you've satisfied the the above assumptions, you can execute:
     $ ansible-playbook web.yml
 
 ## License
-Copyright (C) 2014 - 2017 Alan Orth
+Copyright (C) 2014 - 2018 Alan Orth
 
 The contents of this repository are free software: you can redistribute
 it and/or modify it under the terms of the GNU General Public License
