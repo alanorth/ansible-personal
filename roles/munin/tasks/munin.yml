@@ -1,8 +1,6 @@
 ---
 - name: Install munin package
-  apt: name={{ item }} state=present
-  with_items:
-    - munin
+  apt: name=munin state=present
   tags: packages
 
 - name: Create munin configuration file
