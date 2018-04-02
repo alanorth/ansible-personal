@@ -19,7 +19,7 @@
 
 - name: Copy extra nginx configs
   copy: src={{ item }} dest=/etc/nginx/{{ item }} mode=0644 owner=root group=root
-  with_items:
+  loop:
     - extra-security.conf
     - fastcgi_cache
   notify:

@@ -9,7 +9,7 @@
 
 - name: Install mariadb-server
   apt: name={{ item }} state=present update_cache=yes
-  with_items:
+  loop:
     - mariadb-server
     - python-mysqldb # for ansible
   tags: mariadb, packages
@@ -24,7 +24,7 @@
 # https://docs.ansible.com/ansible/latest/mysql_user_module.html
 - name: Update MariaDB root password for all root accounts
   mysql_user: name=root host={{ item }} password={{ mariadb_root_password }}
-  with_items:
+  loop:
     - "{{ inventory_hostname }}"
     - 127.0.0.1
     - ::1
@@ -37,13 +37,13 @@
 
 - name: Create MariaDB database(s)
   mysql_db: db={{ item.name }} state=present encoding=utf8mb4
-  with_items: "{{ mariadb_databases }}"
+  loop: "{{ mariadb_databases }}"
   when: mariadb_databases is defined
   tags: mariadb
 
 - name: Create MariaDB user(s)
   mysql_user: name={{ item.user }} password={{ item.pass }} priv={{ item.name }}.*:ALL state=present
-  with_items: "{{ mariadb_databases }}"
+  loop: "{{ mariadb_databases }}"
   when: mariadb_databases is defined
   tags: mariadb
 

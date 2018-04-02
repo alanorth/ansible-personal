@@ -1,7 +1,7 @@
 ---
 - name: Install php7.0-fpm and deps
   apt: name={{ item }} state=present update_cache=yes
-  with_items:
+  loop:
     - php7.0-fpm
     # for WordPress
     - php7.0-mysql
@@ -15,7 +15,7 @@
 # only copy php-fpm config for vhosts that need WordPress or PHP
 - name: Copy php-fpm pool config
   template: src=php7.0-pool.conf.j2 dest=/etc/php/7.0/fpm/pool.d/{{ item.domain_name }}.conf owner=root group=root mode=0644
-  with_items: "{{ nginx_vhosts }}"
+  loop: "{{ nginx_vhosts }}"
   when: (item.has_wordpress is defined and item.has_wordpress == True) or (item.needs_php is defined and item.needs_php == True)
   notify: reload php7.0-fpm
   tags: php-fpm
