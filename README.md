@@ -19,6 +19,10 @@ Once you've satisfied the the above assumptions, you can execute:
 
     $ ansible-playbook web.yml
 
+## Todo
+
+- Update packages for Ubuntu 18.04 (mariadb, nginx, tarsnap currently using packages for 17.10 artful)
+
 ## License
 Copyright (C) 2014 - 2018 Alan Orth
 
