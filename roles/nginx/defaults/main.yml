@@ -26,8 +26,8 @@ letsencrypt_root: /etc/letsencrypt/live
 # Location of Let's Encrypt's certbot script
 letsencrypt_certbot_dest: /opt/certbot-auto
 
-# stable is 1.12.x
-# mainline is 1.13.x
+# stable is 1.14.x
+# mainline is 1.15.x
 nginx_version: mainline
 
 # vim: set ts=2 sw=2:
