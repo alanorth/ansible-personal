@@ -12,9 +12,6 @@ deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }} main rest
 deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }}-security main restricted universe multiverse
 deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }}-updates main restricted universe multiverse
 
-###### Ubuntu Partner Repo
-deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner
-
 {% else %}
 {% set apt_mirror    = apt_mirror | default('deb.debian.org') %}
 deb http://{{ apt_mirror }}/debian/ {{ ansible_distribution_release }} main contrib non-free
