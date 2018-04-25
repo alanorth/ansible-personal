@@ -16,3 +16,5 @@
   command: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
   notify:
     - reload firewalld
+
+# vim: set sw=2 ts=2:
