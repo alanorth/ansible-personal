@@ -18,12 +18,12 @@
   tags: packages
 
 - name: Configure firewall
-  import_tasks: firewall_Debian.yml
+  include_tasks: firewall_Debian.yml
   when: ansible_distribution == 'Debian'
   tags: firewall
 
 - name: Configure firewall
-  import_tasks: firewall_Ubuntu.yml
+  include_tasks: firewall_Ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
   tags: firewall
 
