@@ -2,8 +2,8 @@
 {% set apt_mirror    = apt_mirror | default("ubuntu.mirror.ac.ke") %}
 
 deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }} main restricted universe multiverse
-deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }}-security main restricted universe multiverse
 deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }}-updates main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-security main restricted universe multiverse
 
 {% else %}
 {% set apt_mirror    = apt_mirror | default('deb.debian.org') %}
