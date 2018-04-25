@@ -30,6 +30,46 @@ letsencrypt_certbot_dest: /opt/certbot-auto
 # mainline is 1.15.x
 nginx_version: mainline
 
+# Dependencies of certbot-auto on Ubuntu 16.04 "xenial"
+# taken after running certbot-auto on a clean install
+letsencrypt_ubuntu_xenial_deps:
+  - augeas-doc
+  - augeas-tools
+  - binutils
+  - cpp
+  - cpp-5
+  - dialog
+  - gcc
+  - gcc-5
+  - libasan2
+  - libatomic1
+  - libcc1-0
+  - libcilkrts5
+  - libexpat1-dev
+  - libffi-dev
+  - libgcc-5-dev
+  - libgomp1
+  - libisl15
+  - libitm1
+  - liblsan0
+  - libmpc3
+  - libmpx0
+  - libpython-dev
+  - libpython2.7
+  - libpython2.7-dev
+  - libquadmath0
+  - libssl-dev
+  - libtsan0
+  - libubsan0
+  - python-dev
+  - python-pip-whl
+  - python-pkg-resources
+  - python-virtualenv
+  - python2.7-dev
+  - python3-virtualenv
+  - virtualenv
+  - zlib1g-dev
+
 # Dependencies of certbot-auto on Ubuntu 18.04 "bionic"
 # taken after running certbot-auto on a clean install
 letsencrypt_ubuntu_bionic_deps:
