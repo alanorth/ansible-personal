@@ -1,0 +1,10 @@
+---
+
+# sshd service name is `ssh` on Debian/Ubuntu, but it's
+# `sshd` on CentOS
+sshd_service_name: ssh
+
+# provisioning user vars
+provisioning_user: { name: 'provisioning', home: '/home/provisioning' }
+
+# vim: set ts=2 sw=2:

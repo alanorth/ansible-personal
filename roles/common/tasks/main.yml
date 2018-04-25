@@ -1,4 +1,7 @@
 ---
+- name: Import OS-specific variables
+  include_vars: "vars/{{ ansible_distribution }}.yml"
+  tags: always
 
 - name: Configure network time
   import_tasks: ntp.yml
