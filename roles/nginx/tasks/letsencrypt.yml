@@ -57,6 +57,13 @@
     - zlib1g-dev
   tags: packages
 
+- name: Install certbot dependencies (Ubuntu 18.04)
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('18.04', '==')
+  apt: name={{ letsencrypt_ubuntu_bionic_deps }} state=present update_cache=yes
+  tags:
+    - packages
+    - letsencrypt
+
 # dependencies certbot checks for on its first run
 # taken from running certbot right after a clean Debian 9 install
 - name: Install certbot dependencies (Debian 9)
