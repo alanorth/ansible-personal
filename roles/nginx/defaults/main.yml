@@ -115,4 +115,53 @@ letsencrypt_ubuntu_bionic_deps:
   - python3-virtualenv
   - virtualenv
 
+# Dependencies of certbot-auto on Debian 9 "stretch"
+# taken after running certbot-auto on a clean install
+letsencrypt_debian_stretch_deps:
+  - augeas-doc
+  - augeas-tools
+  - autoconf
+  - automake
+  - binutils
+  - bison
+  - cpp
+  - cpp-6
+  - flex
+  - gcc-6
+  - gcc-doc
+  - gcc-multilib
+  - gdb
+  - libasan3
+  - libatomic1
+  - libc-dev-bin
+  - libc6-dev
+  - libcc1-0
+  - libcilkrts5
+  - libexpat1-dev
+  - libffi-dev
+  - libgcc-6-dev
+  - libgomp1
+  - libisl15
+  - libitm1
+  - liblsan0
+  - libmpc3
+  - libmpx2
+  - libpython-dev
+  - libpython2.7
+  - libpython2.7-dev
+  - libquadmath0
+  - libssl-dev
+  - libtool
+  - libtsan0
+  - libubsan0
+  - linux-libc-dev
+  - make
+  - python-dev
+  - python-pip-whl
+  - python-pkg-resources
+  - python-virtualenv
+  - python2.7-dev
+  - python3-virtualenv
+  - virtualenv
+
 # vim: set ts=2 sw=2:
