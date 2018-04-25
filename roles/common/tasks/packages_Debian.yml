@@ -1,6 +1,7 @@
 ---
 - name: Configure apt mirror
   template: src=sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
+  tags: packages
 
 - name: Install base packages
   apt: name={{ item }} update_cache=yes
@@ -20,6 +21,7 @@
     - lrzip
     - unzip
     - apt-transport-https # for https support in apt
+  tags: packages
 
 - name: Configure cron-apt
   import_tasks: cron-apt.yml
@@ -27,5 +29,6 @@
 
 - name: Install tarsnap
   import_tasks: tarsnap.yml
+  tags: packages
 
 # vim: set sw=2 ts=2:

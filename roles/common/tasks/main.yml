@@ -8,12 +8,12 @@
   tags: ntp
 
 - name: Install common packages
-  import_tasks: packages_Debian.yml
+  include_tasks: packages_Debian.yml
   when: ansible_distribution == 'Debian'
   tags: packages
 
 - name: Install common packages
-  import_tasks: packages_Ubuntu.yml
+  include_tasks: packages_Ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
   tags: packages
 

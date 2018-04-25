@@ -2,9 +2,11 @@
 - name: Configure apt mirror
   template: src=sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
   when: ansible_architecture != 'armv7l'
+  tags: packages
 
 - name: Upgrade base OS
   apt: upgrade=dist update_cache=yes
+  tags: packages
 
 - name: Install base packages
   apt: pkg={{ item }}
@@ -25,12 +27,14 @@
     - lrzip
     - unzip
     - apt-transport-https # for https support in apt
+  tags: packages
 
 - name: Security hardening (CIS Benchmark 1.0)
   apt: pkg={{ item }} state=absent purge=yes
   loop:
     - whoopsie # CIS 4.1
     - apport   # CIS 4.1
+  tags: packages
 
 - name: Remove annoying packages
   apt: pkg={{ item }} state=absent purge=yes
@@ -38,6 +42,7 @@
     - command-not-found
     - command-not-found-data
     - python3-commandnotfound
+  tags: packages
 
 - name: Configure cron-apt
   import_tasks: cron-apt.yml
@@ -45,5 +50,6 @@
 
 - name: Install tarsnap
   import_tasks: tarsnap.yml
+  tags: packages
 
 # vim: set sw=2 ts=2:
