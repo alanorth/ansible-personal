@@ -32,7 +32,7 @@
   loop: "{{ nginx_vhosts }}"
   tags: wordpress
 
-- import_tasks: letsencrypt.yml
+- include_tasks: letsencrypt.yml
   when: use_letsencrypt is defined and use_letsencrypt == True
   tags: letsencrypt
 
