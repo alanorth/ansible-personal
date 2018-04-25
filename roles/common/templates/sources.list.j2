@@ -1,14 +1,7 @@
 {% if ansible_distribution == 'Ubuntu' %}
 {% set apt_mirror    = apt_mirror | default("ubuntu.mirror.ac.ke") %}
 
-#############################################################
-################### OFFICIAL UBUNTU REPOS ###################
-#############################################################
-
-###### Ubuntu Main Repos
 deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }} main restricted universe multiverse
-
-###### Ubuntu Update Repos
 deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }}-security main restricted universe multiverse
 deb http://{{ apt_mirror }}/ubuntu/ {{ ansible_distribution_release }}-updates main restricted universe multiverse
 
