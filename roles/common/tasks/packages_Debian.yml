@@ -1,34 +1,34 @@
 ---
-- name: Configure apt mirror
-  template: src=sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
-  tags: packages
 
-- name: Install base packages
-  apt: name={{ item }} update_cache=yes
-  loop:
-    - git
-    - tmux
-    - iotop
-    - htop
-    - strace
-    - cron-apt #how does this work with systemd?
-    - safe-rm
-    - debian-goodies
-    - mosh
-    - python-pycurl # for ansible's apt_repository
-    - lzop
-    - vim
-    - lrzip
-    - unzip
-    - apt-transport-https # for https support in apt
-  tags: packages
+- block:
+  - name: Configure apt mirror
+    template: src=sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
 
-- name: Configure cron-apt
-  import_tasks: cron-apt.yml
-  tags: cron-apt
+  - name: Install base packages
+    apt: name={{ item }} update_cache=yes
+    loop:
+      - git
+      - tmux
+      - iotop
+      - htop
+      - strace
+      - cron-apt #how does this work with systemd?
+      - safe-rm
+      - debian-goodies
+      - mosh
+      - python-pycurl # for ansible's apt_repository
+      - lzop
+      - vim
+      - lrzip
+      - unzip
+      - apt-transport-https # for https support in apt
 
-- name: Install tarsnap
-  import_tasks: tarsnap.yml
+  - name: Configure cron-apt
+    import_tasks: cron-apt.yml
+    tags: cron-apt
+
+  - name: Install tarsnap
+    import_tasks: tarsnap.yml
   tags: packages
 
 # vim: set sw=2 ts=2:

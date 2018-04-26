@@ -1,22 +1,22 @@
 ---
-- name: Install firewalld and deps
-  when: ansible_distribution_major_version is version_compare('8', '>=')
-  apt: pkg={{ item }} state=present
-  loop:
-    - firewalld
-    - tidy
-  tags: firewall
 
-- name: Copy firewalld public zone file
-  when: ansible_distribution_major_version is version_compare('8', '>=')
-  template: src=public.xml.j2 dest=/etc/firewalld/zones/public.xml owner=root mode=0600
-  tags: firewall
+- block:
+  - name: Install firewalld and deps
+    when: ansible_distribution_major_version is version_compare('8', '>=')
+    apt: pkg={{ item }} state=present
+    loop:
+      - firewalld
+      - tidy
 
-- name: Format public.xml firewalld zone file
-  when: ansible_distribution_major_version is version_compare('8', '>=')
-  command: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
-  notify:
-    - reload firewalld
+  - name: Copy firewalld public zone file
+    when: ansible_distribution_major_version is version_compare('8', '>=')
+    template: src=public.xml.j2 dest=/etc/firewalld/zones/public.xml owner=root mode=0600
+
+  - name: Format public.xml firewalld zone file
+    when: ansible_distribution_major_version is version_compare('8', '>=')
+    command: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
+    notify:
+      - reload firewalld
   tags: firewall
 
 # vim: set sw=2 ts=2:

@@ -1,55 +1,52 @@
 ---
-- name: Configure apt mirror
-  template: src=sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
-  when: ansible_architecture != 'armv7l'
-  tags: packages
 
-- name: Upgrade base OS
-  apt: upgrade=dist update_cache=yes
-  tags: packages
+- block:
+  - name: Configure apt mirror
+    template: src=sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
+    when: ansible_architecture != 'armv7l'
 
-- name: Install base packages
-  apt: pkg={{ item }}
-  loop:
-    - git
-    - tmux
-    - iotop
-    - htop
-    - strace
-    - s3cmd
-    - cron-apt
-    - safe-rm
-    - debian-goodies
-    - mosh
-    - python-pycurl # for ansible's apt_repository
-    - lzop
-    - vim
-    - lrzip
-    - unzip
-    - apt-transport-https # for https support in apt
-  tags: packages
+  - name: Upgrade base OS
+    apt: upgrade=dist update_cache=yes
 
-- name: Security hardening (CIS Benchmark 1.0)
-  apt: pkg={{ item }} state=absent purge=yes
-  loop:
-    - whoopsie # CIS 4.1
-    - apport   # CIS 4.1
-  tags: packages
+  - name: Install base packages
+    apt: pkg={{ item }}
+    loop:
+      - git
+      - tmux
+      - iotop
+      - htop
+      - strace
+      - s3cmd
+      - cron-apt
+      - safe-rm
+      - debian-goodies
+      - mosh
+      - python-pycurl # for ansible's apt_repository
+      - lzop
+      - vim
+      - lrzip
+      - unzip
+      - apt-transport-https # for https support in apt
 
-- name: Remove annoying packages
-  apt: pkg={{ item }} state=absent purge=yes
-  loop:
-    - command-not-found
-    - command-not-found-data
-    - python3-commandnotfound
-  tags: packages
+  - name: Security hardening (CIS Benchmark 1.0)
+    apt: pkg={{ item }} state=absent purge=yes
+    loop:
+      - whoopsie # CIS 4.1
+      - apport   # CIS 4.1
 
-- name: Configure cron-apt
-  import_tasks: cron-apt.yml
-  tags: cron-apt
+  - name: Remove annoying packages
+    apt: pkg={{ item }} state=absent purge=yes
+    loop:
+      - command-not-found
+      - command-not-found-data
+      - python3-commandnotfound
 
-- name: Install tarsnap
-  import_tasks: tarsnap.yml
+  - name: Configure cron-apt
+    import_tasks: cron-apt.yml
+    tags: cron-apt
+
+  - name: Install tarsnap
+    import_tasks: tarsnap.yml
   tags: packages
 
 # vim: set sw=2 ts=2:
