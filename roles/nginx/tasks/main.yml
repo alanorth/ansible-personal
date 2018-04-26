@@ -60,7 +60,8 @@
   systemd: name=nginx state=started enabled=yes
   tags: nginx
 
-- include_tasks: letsencrypt.yml
+- name: Configure Let's Encrypt
+  include_tasks: letsencrypt.yml
   when: use_letsencrypt is defined and use_letsencrypt == True
   tags: letsencrypt
 
