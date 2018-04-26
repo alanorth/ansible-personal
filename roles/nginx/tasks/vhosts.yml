@@ -1,39 +1,41 @@
 ---
 
-- name: Configure https vhosts
-  template: src=vhost.conf.j2 dest={{ nginx_confd_path }}/{{ item.domain_name }}.conf mode=0644 owner=root group=root
-  loop: "{{ nginx_vhosts }}"
-  notify:
-    - reload nginx
+- block:
+  - name: Configure https vhosts
+    template: src=vhost.conf.j2 dest={{ nginx_confd_path }}/{{ item.domain_name }}.conf mode=0644 owner=root group=root
+    loop: "{{ nginx_vhosts }}"
+    notify:
+      - reload nginx
 
-- name: Generate self-signed TLS cert
-  command: openssl req -x509 -nodes -sha256 -days 365 -subj "/C=SO/ST=SO/L=snakeoil/O=snakeoil/CN=snakeoil" -newkey rsa:2048 -keyout /etc/ssl/private/nginx-snakeoil.key -out /etc/ssl/certs/nginx-snakeoil.crt -extensions v3_ca creates=/etc/ssl/certs/nginx-snakeoil.crt
-  notify:
-    - reload nginx
+  - name: Generate self-signed TLS cert
+    command: openssl req -x509 -nodes -sha256 -days 365 -subj "/C=SO/ST=SO/L=snakeoil/O=snakeoil/CN=snakeoil" -newkey rsa:2048 -keyout /etc/ssl/private/nginx-snakeoil.key -out /etc/ssl/certs/nginx-snakeoil.crt -extensions v3_ca creates=/etc/ssl/certs/nginx-snakeoil.crt
+    notify:
+      - reload nginx
 
-- name: Generate 2048-bit dhparam
-  command: openssl dhparam -out dhparam.pem 2048 chdir=/etc/ssl/certs creates=dhparam.pem
-  notify:
-    - reload nginx
+  - name: Generate 2048-bit dhparam
+    command: openssl dhparam -out dhparam.pem 2048 chdir=/etc/ssl/certs creates=dhparam.pem
+    notify:
+      - reload nginx
 
-- name: Create vhost document roots
-  file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory mode=0755 owner=nginx group=nginx
-  loop: "{{ nginx_vhosts }}"
+  - name: Create vhost document roots
+    file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory mode=0755 owner=nginx group=nginx
+    loop: "{{ nginx_vhosts }}"
 
-- name: Install WordPress
-  git: repo=https://github.com/WordPress/WordPress.git dest={{ nginx_root_prefix }}/{{ item.domain_name }}/wordpress version={{ item.wordpress_version }} depth=1 force=yes
-  when: item.has_wordpress is defined and item.has_wordpress == True
-  loop: "{{ nginx_vhosts }}"
-  tags: wordpress
+  - name: Install WordPress
+    git: repo=https://github.com/WordPress/WordPress.git dest={{ nginx_root_prefix }}/{{ item.domain_name }}/wordpress version={{ item.wordpress_version }} depth=1 force=yes
+    when: item.has_wordpress is defined and item.has_wordpress == True
+    loop: "{{ nginx_vhosts }}"
+    tags: wordpress
 
-- name: Fix WordPress directory permissions
-  file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory owner=nginx group=nginx recurse=yes
-  when: item.has_wordpress is defined and item.has_wordpress == True
-  loop: "{{ nginx_vhosts }}"
-  tags: wordpress
+  - name: Fix WordPress directory permissions
+    file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory owner=nginx group=nginx recurse=yes
+    when: item.has_wordpress is defined and item.has_wordpress == True
+    loop: "{{ nginx_vhosts }}"
+    tags: wordpress
 
-- include_tasks: letsencrypt.yml
-  when: use_letsencrypt is defined and use_letsencrypt == True
-  tags: letsencrypt
+  - include_tasks: letsencrypt.yml
+    when: use_letsencrypt is defined and use_letsencrypt == True
+    tags: letsencrypt
+  tags: nginx
 
 # vim: set ts=2 sw=2:
