@@ -55,4 +55,8 @@
   systemd: name=nginx state=started enabled=yes
   tags: nginx
 
+- include_tasks: letsencrypt.yml
+  when: use_letsencrypt is defined and use_letsencrypt == True
+  tags: letsencrypt
+
 # vim: set ts=2 sw=2:

@@ -32,10 +32,6 @@
     when: item.has_wordpress is defined and item.has_wordpress == True
     loop: "{{ nginx_vhosts }}"
     tags: wordpress
-
-  - include_tasks: letsencrypt.yml
-    when: use_letsencrypt is defined and use_letsencrypt == True
-    tags: letsencrypt
   tags: nginx
 
 # vim: set ts=2 sw=2:

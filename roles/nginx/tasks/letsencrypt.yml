@@ -1,41 +1,36 @@
 ---
 
-- name: Copy systemd service to renew Let's Encrypt certs
-  template: src=renew-letsencrypt.service.j2 dest=/etc/systemd/system/renew-letsencrypt.service mode=0644 owner=root group=root
+- block:
+  - name: Copy systemd service to renew Let's Encrypt certs
+    template: src=renew-letsencrypt.service.j2 dest=/etc/systemd/system/renew-letsencrypt.service mode=0644 owner=root group=root
+
+  - name: Copy systemd timer to renew Let's Encrypt certs
+    copy: src=renew-letsencrypt.timer dest=/etc/systemd/system/renew-letsencrypt.timer mode=0644 owner=root group=root
+
+  # always issues daemon-reload just in case the server/timer changed
+  - name: Start and enable systemd timer to renew Let's Encrypt certs
+    systemd: name=renew-letsencrypt.timer state=started enabled=yes daemon_reload=yes
+
+  - name: Download certbot
+    get_url: dest={{ letsencrypt_certbot_dest }} url=https://dl.eff.org/certbot-auto mode=700
+
+  - name: Install certbot dependencies (Ubuntu 16.04)
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('16.04', '==')
+    apt: name={{ letsencrypt_deps_ubuntu_xenial }} state=present update_cache=yes
+    tags:
+      - packages
+
+  - name: Install certbot dependencies (Ubuntu 18.04)
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('18.04', '==')
+    apt: name={{ letsencrypt_deps_ubuntu_bionic }} state=present update_cache=yes
+    tags:
+      - packages
+
+  - name: Install certbot dependencies (Debian 9)
+    when: ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('9', '==')
+    apt: name={{ letsencrypt_deps_debian_stretch }} state=present update_cache=yes
+    tags:
+      - packages
   tags: letsencrypt
-
-- name: Copy systemd timer to renew Let's Encrypt certs
-  copy: src=renew-letsencrypt.timer dest=/etc/systemd/system/renew-letsencrypt.timer mode=0644 owner=root group=root
-  tags: letsencrypt
-
-# always issues daemon-reload just in case the server/timer changed
-- name: Start and enable systemd timer to renew Let's Encrypt certs
-  systemd: name=renew-letsencrypt.timer state=started enabled=yes daemon_reload=yes
-  tags: letsencrypt
-
-- name: Download certbot
-  get_url: dest={{ letsencrypt_certbot_dest }} url=https://dl.eff.org/certbot-auto mode=700
-  tags: letsencrypt
-
-- name: Install certbot dependencies (Ubuntu 16.04)
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('16.04', '==')
-  apt: name={{ letsencrypt_deps_ubuntu_xenial }} state=present update_cache=yes
-  tags:
-    - packages
-    - letsencrypt
-
-- name: Install certbot dependencies (Ubuntu 18.04)
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('18.04', '==')
-  apt: name={{ letsencrypt_deps_ubuntu_bionic }} state=present update_cache=yes
-  tags:
-    - packages
-    - letsencrypt
-
-- name: Install certbot dependencies (Debian 9)
-  when: ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('9', '==')
-  apt: name={{ letsencrypt_deps_debian_stretch }} state=present update_cache=yes
-  tags:
-    - packages
-    - letsencrypt
 
 # vim: set ts=2 sw=2:
