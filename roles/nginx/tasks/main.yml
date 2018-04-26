@@ -39,6 +39,11 @@
   when: nginx_vhosts is defined
   tags: nginx
 
+- name: Configure WordPress
+  include_tasks: wordpress.yml
+  when: nginx_vhosts is defined
+  tags: wordpress
+
 - name: Configure blank nginx vhost
   template: src=blank-vhost.conf.j2 dest={{ nginx_confd_path }}/blank-vhost.conf  mode=0644 owner=root group=root
   notify:
