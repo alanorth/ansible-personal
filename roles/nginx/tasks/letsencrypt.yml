@@ -14,17 +14,151 @@
   - name: Download certbot
     get_url: dest={{ letsencrypt_certbot_dest }} url=https://dl.eff.org/certbot-auto mode=700
 
-  - name: Install certbot dependencies (Ubuntu 16.04)
-    when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('16.04', '==')
-    apt: name={{ letsencrypt_deps_ubuntu_xenial }} state=present update_cache=yes
-
-  - name: Install certbot dependencies (Ubuntu 18.04)
-    when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('18.04', '==')
-    apt: name={{ letsencrypt_deps_ubuntu_bionic }} state=present update_cache=yes
-
-  - name: Install certbot dependencies (Debian 9)
+  # Dependencies certbot checks for on its first run. I set them in a fact so that
+  # I can pass the list directly to the apt module to install in one transaction.
+  - name: Set certbot dependencies (Debian 9)
     when: ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('9', '==')
-    apt: name={{ letsencrypt_deps_debian_stretch }} state=present update_cache=yes
+    set_fact:
+      certbot_dependencies:
+        - augeas-doc
+        - augeas-tools
+        - autoconf
+        - automake
+        - binutils
+        - bison
+        - cpp
+        - cpp-6
+        - flex
+        - gcc-6
+        - gcc-doc
+        - gcc-multilib
+        - gdb
+        - libasan3
+        - libatomic1
+        - libc-dev-bin
+        - libc6-dev
+        - libcc1-0
+        - libcilkrts5
+        - libexpat1-dev
+        - libffi-dev
+        - libgcc-6-dev
+        - libgomp1
+        - libisl15
+        - libitm1
+        - liblsan0
+        - libmpc3
+        - libmpx2
+        - libpython-dev
+        - libpython2.7
+        - libpython2.7-dev
+        - libquadmath0
+        - libssl-dev
+        - libtool
+        - libtsan0
+        - libubsan0
+        - linux-libc-dev
+        - make
+        - python-dev
+        - python-pip-whl
+        - python-pkg-resources
+        - python-virtualenv
+        - python2.7-dev
+        - python3-virtualenv
+        - virtualenv
+
+  # Dependencies certbot checks for on its first run. I set them in a fact so that
+  # I can pass the list directly to the apt module to install in one transaction.
+  - name: Set certbot dependencies (Ubuntu 16.04)
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('16.04', '==')
+    set_fact:
+      certbot_dependencies:
+        - augeas-doc
+        - augeas-tools
+        - binutils
+        - cpp
+        - cpp-5
+        - dialog
+        - gcc
+        - gcc-5
+        - libasan2
+        - libatomic1
+        - libcc1-0
+        - libcilkrts5
+        - libexpat1-dev
+        - libffi-dev
+        - libgcc-5-dev
+        - libgomp1
+        - libisl15
+        - libitm1
+        - liblsan0
+        - libmpc3
+        - libmpx0
+        - libpython-dev
+        - libpython2.7
+        - libpython2.7-dev
+        - libquadmath0
+        - libssl-dev
+        - libtsan0
+        - libubsan0
+        - python-dev
+        - python-pip-whl
+        - python-pkg-resources
+        - python-virtualenv
+        - python2.7-dev
+        - python3-virtualenv
+        - virtualenv
+        - zlib1g-dev
+
+  # Dependencies certbot checks for on its first run. I set them in a fact so that
+  # I can pass the list directly to the apt module to install in one transaction.
+  - name: Set certbot dependencies (Ubuntu 18.04)
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('18.04', '==')
+    set_fact:
+      certbot_dependencies:
+        - augeas-lenses
+        - binutils
+        - binutils-common
+        - binutils-x86-64-linux-gnu
+        - cpp
+        - cpp-7
+        - gcc
+        - gcc-7
+        - gcc-7-base
+        - libasan4
+        - libatomic1
+        - libaugeas0
+        - libbinutils
+        - libc-dev-bin
+        - libc6-dev
+        - libcc1-0
+        - libcilkrts5
+        - libexpat1-dev
+        - libffi-dev
+        - libgcc-7-dev
+        - libgomp1
+        - libisl19
+        - libitm1
+        - liblsan0
+        - libmpc3
+        - libmpx2
+        - libpython-dev
+        - libpython2.7
+        - libpython2.7-dev
+        - libquadmath0
+        - libssl-dev
+        - libtsan0
+        - libubsan0
+        - linux-libc-dev
+        - python-dev
+        - python-pip-whl
+        - python-pkg-resources
+        - python-virtualenv
+        - python2.7-dev
+        - python3-virtualenv
+        - virtualenv
+
+  - name: Install certbot dependencies
+    apt: name={{ certbot_dependencies }} state=present update_cache=yes
   tags: letsencrypt
 
 # vim: set ts=2 sw=2:
