@@ -5,9 +5,7 @@
   loop:
     - firewalld
     - tidy
-  tags:
-    - packages
-    - firewall
+  tags: firewall
 
 - name: Copy firewalld public zone file
   when: ansible_distribution_version is version_compare('15.04', '>=')

@@ -15,11 +15,9 @@
 - name: Uninstall ntp on modern Ubuntu/Debian
   apt: name=ntp state=absent update_cache=yes
   when: ansible_service_mgr == 'systemd'
-  tags: packages
 
 - name: Install ntp on old Ubuntu/Debian
   apt: name=ntp state=present update_cache=yes
   when: ansible_service_mgr != 'systemd'
-  tags: packages
 
 # vim: set ts=2 sw=2:

@@ -17,20 +17,14 @@
   - name: Install certbot dependencies (Ubuntu 16.04)
     when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('16.04', '==')
     apt: name={{ letsencrypt_deps_ubuntu_xenial }} state=present update_cache=yes
-    tags:
-      - packages
 
   - name: Install certbot dependencies (Ubuntu 18.04)
     when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('18.04', '==')
     apt: name={{ letsencrypt_deps_ubuntu_bionic }} state=present update_cache=yes
-    tags:
-      - packages
 
   - name: Install certbot dependencies (Debian 9)
     when: ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('9', '==')
     apt: name={{ letsencrypt_deps_debian_stretch }} state=present update_cache=yes
-    tags:
-      - packages
   tags: letsencrypt
 
 # vim: set ts=2 sw=2:
