@@ -1,34 +1,34 @@
 ---
-- name: Install php-fpm and deps
-  apt: name={{ item }} state=present update_cache=yes
-  loop:
-    - php-fpm
-    # for WordPress
-    - php-mysql
-    - php-gd
-    - php-curl
-    # for Piwik
-    - php-mbstring
-    - php-xml
-  tags: php-fpm, packages
 
-# only copy php-fpm config for vhosts that need WordPress or PHP
-- name: Copy php-fpm pool config
-  template: src=php7.2-pool.conf.j2 dest=/etc/php/7.2/fpm/pool.d/{{ item.domain_name }}.conf owner=root group=root mode=0644
-  loop: "{{ nginx_vhosts }}"
-  when: (item.has_wordpress is defined and item.has_wordpress == True) or (item.needs_php is defined and item.needs_php == True)
-  notify: reload php7.2-fpm
-  tags: php-fpm
+- block:
+  - name: Install php-fpm and deps
+    apt: name={{ item }} state=present update_cache=yes
+    loop:
+      - php-fpm
+      # for WordPress
+      - php-mysql
+      - php-gd
+      - php-curl
+      # for Piwik
+      - php-mbstring
+      - php-xml
+    tags: packages
 
-- name: Remove default www pool
-  file: path=/etc/php/7.2/fpm/pool.d/www.conf state=absent
-  notify: reload php7.2-fpm
-  tags: php-fpm
+  # only copy php-fpm config for vhosts that need WordPress or PHP
+  - name: Copy php-fpm pool config
+    template: src=php7.2-pool.conf.j2 dest=/etc/php/7.2/fpm/pool.d/{{ item.domain_name }}.conf owner=root group=root mode=0644
+    loop: "{{ nginx_vhosts }}"
+    when: (item.has_wordpress is defined and item.has_wordpress == True) or (item.needs_php is defined and item.needs_php == True)
+    notify: reload php7.2-fpm
 
-# re-configure php.ini
-- name: Update php.ini
-  template: src=php7.2-php.ini.j2 dest=/etc/php/7.2/fpm/php.ini owner=root group=root mode=0644
-  notify: reload php7.2-fpm
+  - name: Remove default www pool
+    file: path=/etc/php/7.2/fpm/pool.d/www.conf state=absent
+    notify: reload php7.2-fpm
+
+  # re-configure php.ini
+  - name: Update php.ini
+    template: src=php7.2-php.ini.j2 dest=/etc/php/7.2/fpm/php.ini owner=root group=root mode=0644
+    notify: reload php7.2-fpm
   tags: php-fpm
 
 # vim: set ts=2 sw=2:
