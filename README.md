@@ -22,6 +22,7 @@ Once you've satisfied the the above assumptions, you can execute:
 ## Todo
 
 - Update packages for Ubuntu 18.04 (mariadb, nginx, tarsnap currently using packages for 17.10 artful)
+- Switch from `cron-apt` to [`unattended-upgrades`](https://wiki.debian.org/UnattendedUpgrades)
 
 ## License
 Copyright (C) 2014 - 2018 Alan Orth
