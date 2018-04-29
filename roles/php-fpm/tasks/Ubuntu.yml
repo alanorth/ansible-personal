@@ -12,7 +12,6 @@
       # for Piwik
       - php7.0-mbstring
       - php7.0-xml
-    tags: packages
 
   # only copy php-fpm config for vhosts that need WordPress or PHP
   - name: Copy php-fpm pool config
