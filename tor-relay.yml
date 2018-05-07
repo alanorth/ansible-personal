@@ -1,0 +1,10 @@
+---
+# file: tor-relay.yml
+
+- name: Configure tor relays
+  hosts: relays
+  remote_user: provisioning
+  roles:
+    - nusenu.relayor # must be installed, see README.md
+
+# vim: set sw=2 ts=2:
