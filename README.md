@@ -25,7 +25,6 @@ If setting up Tor relays, you need to install the [ansible-relayor](https://gith
 
 ## Todo
 
-- Update packages for Ubuntu 18.04 (mariadb currently using packages for 17.10 artful)
 - Switch from `cron-apt` to [`unattended-upgrades`](https://wiki.debian.org/UnattendedUpgrades)
 
 ## License
