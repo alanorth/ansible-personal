@@ -9,4 +9,7 @@
 - name: Install tarsnap
   apt: pkg=tarsnap update_cache=yes
 
+- name: Copy tarsnaprc
+  copy: src=tarsnaprc dest=/root/.tarsnaprc owner=root group=root mode=0600
+
 # vim: set sw=2 ts=2:
