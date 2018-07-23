@@ -8,7 +8,7 @@ name = "pypi"
 PyYAML = "*"
 paramiko = "*"
 cryptography = "*"
-ansible = "<2.6"
+ansible = "==2.6.*"
 netaddr = "*"
 
 [dev-packages]
