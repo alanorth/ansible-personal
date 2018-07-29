@@ -3,7 +3,7 @@
   apt_key: id=0x177F4010FE56CA3336300305F1656F24C74CD1D8 url=https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x177F4010FE56CA3336300305F1656F24C74CD1D8
   tags: mariadb, packages
 
-- name: Add MariaDB 10.2 repo
+- name: Add MariaDB 10.3 repo
   template: src=mariadb.list.j2 dest=/etc/apt/sources.list.d/mariadb.list owner=root group=root mode=0644
   tags: mariadb, packages
 

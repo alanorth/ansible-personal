@@ -1,10 +1,10 @@
 # {{ ansible_managed }}
 {% if ansible_distribution == 'Ubuntu' %}
 
-deb [arch=amd64,i386] http://mirror.23media.de/mariadb/repo/10.2/ubuntu {{ ansible_distribution_release }} main
+deb [arch=amd64] http://mirror.23media.de/mariadb/repo/10.3/ubuntu {{ ansible_distribution_release }} main
 
 {% elif ansible_distribution == 'Debian' %}
 
-deb [arch=amd64,i386] http://mirror.23media.de/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main
+deb [arch=amd64] http://mirror.23media.de/mariadb/repo/10.3/debian {{ ansible_distribution_release }} main
 
 {% endif %} {# ansible_distribution #}
