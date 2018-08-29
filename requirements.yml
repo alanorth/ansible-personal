@@ -1,5 +1,0 @@
-- src: https://github.com/nusenu/ansible-relayor
-  name: nusenu.relayor
-  version: master
-
-# vim: set sw=2 ts=2:

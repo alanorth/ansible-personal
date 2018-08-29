@@ -20,10 +20,6 @@ Once you've satisfied the the above assumptions, you can execute:
 
     $ ansible-playbook web.yml
 
-If setting up Tor relays, you need to install the [ansible-relayor](https://github.com/nusenu/ansible-relayor) role:
-
-    $ ansible-galaxy install -r requirements.yml
-
 ## Todo
 
 - Switch from `cron-apt` to [`unattended-upgrades`](https://wiki.debian.org/UnattendedUpgrades)
