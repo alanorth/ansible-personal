@@ -31,6 +31,16 @@
   import_tasks: sshd.yml
   tags: sshd
 
+# this should work on CentOS 7+ and Ubuntu 16.04+
+- block:
+  - name: Create systemd-journald drop-in config directory
+    file: path=/etc/systemd/journald.conf.d owner=root group=root mode=0755 state=directory
+
+  - name: Enable persistent systemd journal
+    copy: src=00-persistent-journal.conf dest=/etc/systemd/journald.conf.d/00-persistent-journal.conf owner=root group=root mode=0644
+  when: ansible_service_mgr == 'systemd'
+  tags: systemd-journald
+
 # containers identify as virtualization hosts, which makes this tricky, because we have actual Debian VM hosts!
 - name: Reconfigure /etc/sysctl.conf
   when: ansible_virtualization_role != 'host'
