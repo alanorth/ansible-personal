@@ -6,7 +6,7 @@
     when: ansible_architecture != 'armv7l'
 
   - name: Upgrade base OS
-    apt: upgrade=dist update_cache=yes
+    apt: upgrade=dist update_cache=yes cache_valid_time=3600
 
   - name: Set Ubuntu base packages
     set_fact:
