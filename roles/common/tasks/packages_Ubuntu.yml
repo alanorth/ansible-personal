@@ -30,7 +30,6 @@
   - name: Install base packages
     apt: pkg={{ ubuntu_base_packages }} state=present update_cache=yes cache_valid_time=3600
 
-
   - name: Set fact for packages to remove
     set_fact:
       ubuntu_annoying_packages:
