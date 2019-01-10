@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 {% if ansible_distribution == 'Ubuntu' %}
 
 deb [arch=amd64] http://mirror.23media.de/mariadb/repo/10.3/ubuntu {{ ansible_distribution_release }} main

@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 {# helper variables and per-site defaults that we can't set in role defaults #}
 {% set domain_name    = item.domain_name %}
