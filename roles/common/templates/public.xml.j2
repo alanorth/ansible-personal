@@ -7,14 +7,24 @@
     <rule family="ipv4">
         <source address="0.0.0.0/0"/>
         <port protocol="tcp" port="22"/>
-        <accept/>
+        <log prefix="ssh fw limit 5/m " level="warning">
+            <limit value="5/m"/>
+        </log>
+        <accept>
+            <limit value="5/m"/>
+        </accept>
     </rule>
 
     {# ipv6 ssh rules #}
     <rule family="ipv6">
         <source address="::/0"/>
         <port protocol="tcp" port="22"/>
-        <accept/>
+        <log prefix="ssh fw limit 5/m " level="warning">
+            <limit value="5/m"/>
+        </log>
+        <accept>
+            <limit value="5/m"/>
+        </accept>
     </rule>
 
     {# web rules #}
