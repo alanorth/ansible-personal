@@ -5,6 +5,7 @@
 
 - name: Add GPG key for Tarsnap
   apt_key: id=0x70BD6C50E82A9D99 url=https://pkg.tarsnap.com/tarsnap-deb-packaging-key.asc state=present
+  ignore_errors: yes
 
 - name: Install tarsnap
   apt: pkg=tarsnap update_cache=yes
