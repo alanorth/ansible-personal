@@ -17,7 +17,7 @@
     add_tarsnap_apt_repository is changed
 
 - name: Install tarsnap
-  apt: pkg=tarsnap update_cache=yes
+  apt: pkg=tarsnap cache_valid_time=3600
 
 - name: Copy tarsnaprc
   copy: src=tarsnaprc dest=/root/.tarsnaprc owner=root group=root mode=0600

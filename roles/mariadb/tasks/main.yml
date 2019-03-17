@@ -17,7 +17,7 @@
     add_mariadb_apt_repository is changed
 
 - name: Install mariadb-server
-  apt: name={{ item }} state=present update_cache=yes
+  apt: name={{ item }} state=present cache_valid_time=3600
   loop:
     - mariadb-server
     - python-mysqldb # for ansible
