@@ -1,11 +1,20 @@
 ---
 - name: Add nginx.org apt signing key
   apt_key: id=0x573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 url=https://nginx.org/keys/nginx_signing.key state=present
+  register: add_nginx_apt_key
   tags: nginx, packages
 
 - name: Add nginx.org repo
   template: src=nginx_org_sources.list.j2 dest=/etc/apt/sources.list.d/nginx_org_sources.list owner=root group=root mode=0644
+  register: add_nginx_apt_repository
   tags: nginx, packages
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when:
+    add_nginx_apt_key is changed or
+    add_nginx_apt_repository is changed
 
 - name: Install nginx
   apt: pkg=nginx update_cache=yes state=present

@@ -1,11 +1,20 @@
 ---
 - name: Add Tarsnap apt mirror
   template: src=tarsnap_sources.list.j2 dest=/etc/apt/sources.list.d/tarsnap.list owner=root group=root mode=0644
+  register: add_tarsnap_apt_repository
   when: ansible_architecture != 'armv7l'
 
 - name: Add GPG key for Tarsnap
   apt_key: id=0x70BD6C50E82A9D99 url=https://pkg.tarsnap.com/tarsnap-deb-packaging-key.asc state=present
+  register: add_tarsnap_apt_key
   ignore_errors: yes
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when:
+    add_tarsnap_apt_key is changed or
+    add_tarsnap_apt_repository is changed
 
 - name: Install tarsnap
   apt: pkg=tarsnap update_cache=yes

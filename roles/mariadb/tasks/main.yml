@@ -1,11 +1,20 @@
 ---
 - name: Add GPG key for MariaDB repo
   apt_key: id=0x177F4010FE56CA3336300305F1656F24C74CD1D8 url=https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x177F4010FE56CA3336300305F1656F24C74CD1D8
+  register: add_mariadb_apt_key
   tags: mariadb, packages
 
 - name: Add MariaDB 10.3 repo
   template: src=mariadb.list.j2 dest=/etc/apt/sources.list.d/mariadb.list owner=root group=root mode=0644
+  register: add_mariadb_apt_repository
   tags: mariadb, packages
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when:
+    add_mariadb_apt_key is changed or
+    add_mariadb_apt_repository is changed
 
 - name: Install mariadb-server
   apt: name={{ item }} state=present update_cache=yes
