@@ -20,7 +20,7 @@
   apt: name={{ item }} state=present cache_valid_time=3600
   loop:
     - mariadb-server
-    - python-mysqldb # for ansible
+    - python3-pymysql # for ansible
   tags: mariadb, packages
 
 - name: Create system my.cnf
