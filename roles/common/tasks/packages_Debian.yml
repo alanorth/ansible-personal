@@ -16,7 +16,7 @@
       - safe-rm
       - debian-goodies
       - mosh
-      - python-pycurl # for ansible's apt_repository
+      - python3-pycurl # for ansible's apt_repository
       - lzop
       - vim
       - lrzip
