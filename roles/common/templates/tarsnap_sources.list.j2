@@ -1,1 +1,6 @@
+{% if ansible_distribution_release == 'buster' %}
+# there are no tarsnap packages for Debian 10 "buster" yet, so use Debian 9's
+deb [arch=amd64] https://pkg.tarsnap.com/deb/stretch ./
+{% else %}
 deb [arch=amd64] https://pkg.tarsnap.com/deb/{{ ansible_distribution_release }} ./
+{% endif %}
