@@ -1,5 +1,5 @@
 ---
-# Hosts running Ubuntu >= 16.04 and Debian 9 use systemd init system and should
+# Hosts running Ubuntu 16.04+ and Debian 9+ use systemd init system and should
 # use timedatectl as a network time client instead of the standalone ntp client.
 # Earlier versions of those distros should use the ntp/ntpd package.
 
