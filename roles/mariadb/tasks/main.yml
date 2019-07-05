@@ -4,7 +4,7 @@
   register: add_mariadb_apt_key
   tags: mariadb, packages
 
-- name: Add MariaDB 10.3 repo
+- name: Add MariaDB 10.4 repo
   template: src=mariadb.list.j2 dest=/etc/apt/sources.list.d/mariadb.list owner=root group=root mode=0644
   register: add_mariadb_apt_repository
   tags: mariadb, packages
