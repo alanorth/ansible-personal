@@ -22,6 +22,7 @@
         - lrzip
         - unzip
         - apt-transport-https # for https support in apt
+        - gnupg2
 
   - name: Install base packages
     apt: name={{ base_packages }} state=present update_cache=yes cache_valid_time=3600
