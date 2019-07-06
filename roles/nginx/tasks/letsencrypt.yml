@@ -16,6 +16,49 @@
 
   # Dependencies certbot checks for on its first run. I set them in a fact so that
   # I can pass the list directly to the apt module to install in one transaction.
+  - name: Set certbot dependencies (Debian 10)
+    when: ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('10', '==')
+    set_fact:
+      certbot_dependencies:
+        - binutils
+        - binutils-common
+        - binutils-x86-64-linux-gnu
+        - cpp
+        - cpp-8
+        - gcc-8
+        - libasan5
+        - libatomic1
+        - libbinutils
+        - libc-dev-bin
+        - libc6-dev
+        - libcc1-0
+        - libexpat1-dev
+        - libgcc-8-dev
+        - libgomp1
+        - libisl19
+        - libitm1
+        - liblsan0
+        - libmpc3
+        - libmpfr6
+        - libmpx2
+        - libpython-dev
+        - libpython2-dev
+        - libpython2.7
+        - libpython2.7-dev
+        - libquadmath0
+        - libtsan0
+        - libubsan1
+        - linux-libc-dev
+        - python-pip-whl
+        - python-pkg-resources
+        - python2-dev
+        - python2.7-dev
+        - python3-distutils
+        - python3-lib2to3
+        - python3-virtualenv
+
+  # Dependencies certbot checks for on its first run. I set them in a fact so that
+  # I can pass the list directly to the apt module to install in one transaction.
   - name: Set certbot dependencies (Debian 9)
     when: ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('9', '==')
     set_fact:
