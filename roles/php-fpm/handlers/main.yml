@@ -7,4 +7,8 @@
 - name: reload php7.2-fpm
   systemd: name=php7.2-fpm state=reloaded
 
+# For Debian 10
+- name: reload php7.3-fpm
+  systemd: name=php7.3-fpm state=reloaded
+
 # vim: set ts=2 sw=2:
