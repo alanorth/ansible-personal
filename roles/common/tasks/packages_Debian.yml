@@ -4,24 +4,27 @@
   - name: Configure apt mirror
     template: src=sources.list.j2 dest=/etc/apt/sources.list owner=root group=root mode=0644
 
+  - name: Set fact for base packages
+    set_fact:
+      base_packages:
+        - git
+        - tmux
+        - iotop
+        - htop
+        - strace
+        - cron-apt #how does this work with systemd?
+        - safe-rm
+        - debian-goodies
+        - mosh
+        - python3-pycurl # for ansible's apt_repository
+        - lzop
+        - vim
+        - lrzip
+        - unzip
+        - apt-transport-https # for https support in apt
+
   - name: Install base packages
-    apt: name={{ item }} update_cache=yes
-    loop:
-      - git
-      - tmux
-      - iotop
-      - htop
-      - strace
-      - cron-apt #how does this work with systemd?
-      - safe-rm
-      - debian-goodies
-      - mosh
-      - python-pycurl # for ansible's apt_repository
-      - lzop
-      - vim
-      - lrzip
-      - unzip
-      - apt-transport-https # for https support in apt
+    apt: name={{ base_packages }} update_cache=yes
 
   - name: Configure cron-apt
     import_tasks: cron-apt.yml
