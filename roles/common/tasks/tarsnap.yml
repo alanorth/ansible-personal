@@ -5,7 +5,7 @@
   when: ansible_architecture != 'armv7l'
 
 - name: Add GPG key for Tarsnap
-  apt_key: id=0x70BD6C50E82A9D99 url=https://pkg.tarsnap.com/tarsnap-deb-packaging-key.asc state=present
+  apt_key: id=0x6D97F5A4CA38CF33 url=https://pkg.tarsnap.com/tarsnap-deb-packaging-key.asc state=present
   register: add_tarsnap_apt_key
   ignore_errors: yes
 
