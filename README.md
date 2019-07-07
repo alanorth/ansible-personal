@@ -25,7 +25,7 @@ Once you've satisfied the the above assumptions, you can execute:
 - Switch from `cron-apt` to [`unattended-upgrades`](https://wiki.debian.org/UnattendedUpgrades)
 
 ## License
-Copyright (C) 2014 - 2018 Alan Orth
+Copyright (C) 2014 - 2019 Alan Orth
 
 The contents of this repository are free software: you can redistribute
 it and/or modify it under the terms of the GNU General Public License
