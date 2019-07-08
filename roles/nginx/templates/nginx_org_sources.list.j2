@@ -8,19 +8,11 @@ deb [arch=amd64] https://nginx.org/packages/ubuntu/ {{ ansible_distribution_rele
 deb [arch=amd64] https://nginx.org/packages/mainline/ubuntu/ {{ ansible_distribution_release }} nginx
 {% endif %}
 
-{% elif ansible_distribution == 'Debian' and ansible_distribution_release == 'buster' %}
-# there are no tarsnap packages for Debian 10 "buster" yet, so use Debian 9's
+{% elif ansible_distribution == 'Debian' %}
 {% if nginx_version == "stable" %}
 deb [arch=amd64] https://nginx.org/packages/debian/ stretch nginx
 {% elif nginx_version == "mainline" %}
 deb [arch=amd64] https://nginx.org/packages/mainline/debian/ stretch nginx
-{% endif %}
-
-{% elif ansible_distribution == 'Debian' and ansible_distribution_release != 'buster' %}
-{% if nginx_version == "stable" %}
-deb [arch=amd64] https://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
-{% elif nginx_version == "mainline" %}
-deb [arch=amd64] https://nginx.org/packages/mainline/debian/ {{ ansible_distribution_release }} nginx
 {% endif %}
 
 {% endif %}
