@@ -6,6 +6,14 @@
 
 - name: Add GPG key for Tarsnap
   apt_key: id=0x6D97F5A4CA38CF33 url=https://pkg.tarsnap.com/tarsnap-deb-packaging-key.asc state=present
+  when: ansible_distribution_release != 'buster'
+  register: add_tarsnap_apt_key
+
+# Tarsnap currently provides experimental packages for Debian 10 "buster"
+# See: https://www.tarsnap.com/pkg-deb.html#experimental
+- name: Add GPG key for Tarsnap experimental
+  apt_key: id=0xF77F1024ECFAF293 url=https://pkg.tarsnap.com/experimental/tarsnap-EXPERIMENTAL-deb-packaging-key.asc state=present
+  when: ansible_distribution == 'Debian' and ansible_distribution_release == 'buster'
   register: add_tarsnap_apt_key
 
 - name: Update apt cache
