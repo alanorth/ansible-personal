@@ -20,19 +20,23 @@
     when: ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('10', '==')
     set_fact:
       certbot_dependencies:
+        - augeas-lenses
         - binutils
         - binutils-common
         - binutils-x86-64-linux-gnu
         - cpp
         - cpp-8
+        - gcc
         - gcc-8
         - libasan5
         - libatomic1
+        - libaugeas0
         - libbinutils
         - libc-dev-bin
         - libc6-dev
         - libcc1-0
         - libexpat1-dev
+        - libffi-dev
         - libgcc-8-dev
         - libgomp1
         - libisl19
@@ -46,16 +50,20 @@
         - libpython2.7
         - libpython2.7-dev
         - libquadmath0
+        - libssl-dev
         - libtsan0
         - libubsan1
         - linux-libc-dev
+        - python-dev
         - python-pip-whl
         - python-pkg-resources
+        - python-virtualenv
         - python2-dev
         - python2.7-dev
         - python3-distutils
         - python3-lib2to3
         - python3-virtualenv
+        - virtualenv
 
   # Dependencies certbot checks for on its first run. I set them in a fact so that
   # I can pass the list directly to the apt module to install in one transaction.
