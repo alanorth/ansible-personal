@@ -32,7 +32,7 @@
 # 'localhost' needs to be the last item for idempotency, see
 # https://docs.ansible.com/ansible/latest/mysql_user_module.html
 - name: Update MariaDB root password for all root accounts
-  mysql_user: name=root host={{ item }} password={{ mariadb_root_password }}
+  mysql_user: name=root host={{ item }} password={{ mariadb_root_password }} login_unix_socket={{ mariadb_login_unix_socket }}
   loop:
     - "{{ inventory_hostname }}"
     - 127.0.0.1
