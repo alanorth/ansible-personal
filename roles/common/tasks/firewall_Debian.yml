@@ -1,6 +1,10 @@
 ---
 
 - block:
+  - name: Install iptables 1.8.3 on Debian Buster
+    when: ansible_distribution_major_version is version_compare('10', '==')
+    apt: pkg=iptables state=present default_release=buster-backports
+
   - name: Install firewalld and deps
     when: ansible_distribution_major_version is version_compare('8', '>=')
     apt: pkg={{ item }} state=present
