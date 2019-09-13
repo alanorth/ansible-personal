@@ -1,7 +1,1 @@
-{% if ansible_distribution_release == 'buster' %}
-# Tarsnap currently provides experimental packages for Debian 10 "buster"
-# See: https://www.tarsnap.com/pkg-deb.html#experimental
-deb [arch=amd64] http://pkg.tarsnap.com/experimental/deb/buster ./
-{% else %}
 deb [arch=amd64] https://pkg.tarsnap.com/deb/{{ ansible_distribution_release }} ./
-{% endif %}
