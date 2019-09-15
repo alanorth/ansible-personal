@@ -21,9 +21,7 @@
       - debian-goodies
       - mosh
       - python-pycurl # for ansible's apt_repository
-      - lzop
       - vim
-      - lrzip
       - unzip
       - apt-transport-https # for https support in apt
       - zstd
