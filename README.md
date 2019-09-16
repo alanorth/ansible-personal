@@ -4,8 +4,8 @@ Ansible playbook for base and initial configuration of the web server hosting my
 ## Assumptions
 Before you can run this, a few things are assumed:
 
-- You have a clean, minimal Debian 9, Ubuntu 16.04, or Ubuntu 18.04 host up and running
-- Python 2 is installed on the remote server (requirement of Ansible)
+- You have a clean, minimal Debian 9, Ubuntu 16.04, Ubuntu 18.04, or Debian 10 host up and running
+- Python 2 or 3 is installed on the remote server (requirement of Ansible)
 - You have a user account with password-less SSH access to the machine
 - You have sudo privileges on the remote host
 - You have created a `hosts` file with something like:
