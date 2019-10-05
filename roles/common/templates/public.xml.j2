@@ -64,4 +64,13 @@
 
     {% endfor %}
     {% endif %}
+
+    <rule>
+      <source ipset="abusers-ipv4"/>
+      <drop/>
+    </rule>
+    <rule>
+      <source ipset="abusers-ipv6"/>
+      <drop/>
+    </rule>
 </zone>
