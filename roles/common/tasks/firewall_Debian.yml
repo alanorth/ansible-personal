@@ -21,6 +21,15 @@
     command: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
     notify:
       - reload firewalld
+
+  - name: Copy ipsets of abusive IPs
+    when: ansible_distribution_major_version is version_compare('8', '>=')
+    copy: src={{ item }} dest=/etc/firewalld/ipsets/{{ item }} owner=root group=root mode=0600
+    loop:
+      - abusers-ipv4.xml
+      - abusers-ipv6.xml
+    notify:
+      - reload firewalld
   tags: firewall
 
 # vim: set sw=2 ts=2:
