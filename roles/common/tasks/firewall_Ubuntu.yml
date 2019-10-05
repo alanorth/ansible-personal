@@ -16,7 +16,7 @@
     when: ansible_distribution_version is version_compare('15.04', '>=')
     command: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
     notify:
-      - reload firewalld
+      - restart firewalld
 
   - name: Copy ipsets of abusive IPs
     when: ansible_distribution_major_version is version_compare('15.04', '>=')
@@ -25,7 +25,7 @@
       - abusers-ipv4.xml
       - abusers-ipv6.xml
     notify:
-      - reload firewalld
+      - restart firewalld
   tags: firewall
 
 # vim: set sw=2 ts=2:
