@@ -8,6 +8,15 @@
       - firewalld
       - tidy
 
+  - name: Use nftables backend in firewalld
+    when: ansible_distribution_major_version is version_compare('10', '>=')
+    lineinfile:
+      dest: /etc/firewalld/firewalld.conf
+      regexp: '^FirewallBackend=iptables$'
+      line: 'FirewallBackend=nftables'
+    notify:
+      - restart firewalld
+
   - name: Copy firewalld public zone file
     when: ansible_distribution_major_version is version_compare('8', '>=')
     template: src=public.xml.j2 dest=/etc/firewalld/zones/public.xml owner=root mode=0600
