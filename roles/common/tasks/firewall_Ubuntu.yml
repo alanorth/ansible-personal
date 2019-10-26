@@ -1,12 +1,17 @@
 ---
 
 - block:
+  - name: Set Ubuntu firewall packages
+    set_fact:
+      ubuntu_firewall_packages:
+        - firewalld
+        - tidy
+        - fail2ban
+        - python3-systemd # for fail2ban systemd backend
+
   - name: Install firewalld and deps
     when: ansible_distribution_version is version_compare('15.04', '>=')
-    apt: pkg={{ item }} state=present
-    loop:
-      - firewalld
-      - tidy
+    apt: pkg={{ ubuntu_firewall_packages }} state=present
 
   - name: Copy firewalld public zone file
     when: ansible_distribution_version is version_compare('15.04', '>=')
@@ -26,6 +31,9 @@
       - abusers-ipv6.xml
     notify:
       - restart firewalld
+
+  - include_tasks: fail2ban.yml
+    when: ansible_distribution_version is version_compare('15.04', '>=')
   tags: firewall
 
 # vim: set sw=2 ts=2:

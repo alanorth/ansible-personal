@@ -15,3 +15,9 @@
 
 - name: restart firewalld
   systemd: name=firewalld state=restarted
+
+- name: restart fail2ban
+  systemd: name=fail2ban state=restarted
+
+- name: reload systemd
+  systemd: daemon_reload=yes
