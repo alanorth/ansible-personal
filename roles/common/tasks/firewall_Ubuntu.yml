@@ -10,21 +10,21 @@
         - python3-systemd # for fail2ban systemd backend
 
   - name: Install firewalld and deps
-    when: ansible_distribution_version is version_compare('15.04', '>=')
+    when: ansible_distribution_version is version_compare('16.04', '>=')
     apt: pkg={{ ubuntu_firewall_packages }} state=present
 
   - name: Copy firewalld public zone file
-    when: ansible_distribution_version is version_compare('15.04', '>=')
+    when: ansible_distribution_version is version_compare('16.04', '>=')
     template: src=public.xml.j2 dest=/etc/firewalld/zones/public.xml owner=root mode=0600
 
   - name: Format public.xml firewalld zone file
-    when: ansible_distribution_version is version_compare('15.04', '>=')
+    when: ansible_distribution_version is version_compare('16.04', '>=')
     command: tidy -xml -iq -m -w 0 /etc/firewalld/zones/public.xml
     notify:
       - restart firewalld
 
   - name: Copy ipsets of abusive IPs
-    when: ansible_distribution_major_version is version_compare('15.04', '>=')
+    when: ansible_distribution_major_version is version_compare('16.04', '>=')
     copy: src={{ item }} dest=/etc/firewalld/ipsets/{{ item }} owner=root group=root mode=0600
     loop:
       - abusers-ipv4.xml
@@ -33,7 +33,7 @@
       - restart firewalld
 
   - include_tasks: fail2ban.yml
-    when: ansible_distribution_version is version_compare('15.04', '>=')
+    when: ansible_distribution_version is version_compare('16.04', '>=')
   tags: firewall
 
 # vim: set sw=2 ts=2:
