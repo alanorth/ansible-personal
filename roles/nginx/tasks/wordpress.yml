@@ -3,12 +3,12 @@
 - block:
   - name: Install WordPress
     git: repo=https://github.com/WordPress/WordPress.git dest={{ nginx_root_prefix }}/{{ item.domain_name }}/wordpress version={{ item.wordpress_version }} depth=1 force=yes
-    when: item.has_wordpress is defined and item.has_wordpress == True
+    when: item.has_wordpress is defined and item.has_wordpress is True
     loop: "{{ nginx_vhosts }}"
 
   - name: Fix WordPress directory permissions
     file: path={{ nginx_root_prefix }}/{{ item.domain_name }} state=directory owner=nginx group=nginx recurse=yes
-    when: item.has_wordpress is defined and item.has_wordpress == True
+    when: item.has_wordpress is defined and item.has_wordpress is True
     loop: "{{ nginx_vhosts }}"
   tags: wordpress
 

@@ -20,7 +20,7 @@
   - name: Copy php-fpm pool config
     template: src=php7.2-pool.conf.j2 dest=/etc/php/7.2/fpm/pool.d/{{ item.domain_name }}.conf owner=root group=root mode=0644
     loop: "{{ nginx_vhosts }}"
-    when: (item.has_wordpress is defined and item.has_wordpress == True) or (item.needs_php is defined and item.needs_php == True)
+    when: (item.has_wordpress is defined and item.has_wordpress is True) or (item.needs_php is defined and item.needs_php is True)
     notify: reload php7.2-fpm
 
   - name: Remove default www pool
