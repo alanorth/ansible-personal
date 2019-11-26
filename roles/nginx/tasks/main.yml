@@ -71,7 +71,7 @@
 
 - name: Configure Let's Encrypt
   include_tasks: letsencrypt.yml
-  when: use_letsencrypt is defined and use_letsencrypt is True
+  when: use_letsencrypt is defined and use_letsencrypt
   tags: letsencrypt
 
 # vim: set ts=2 sw=2:
