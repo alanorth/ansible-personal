@@ -3,7 +3,6 @@
 
 - name: Configure web servers
   hosts: web
-  remote_user: provisioning
   become: yes
   roles:
     - common
