@@ -64,11 +64,11 @@ server {
         fastcgi_param HTTP_PROXY "";
 
         {# As of Ubuntu 16.04 and Debian 9, the PHP-FPM configs are the same #}
-        {% if (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('16.04', '==')) or (ansible_distribution == 'Debian' and ansible_distribution_major_version is version_compare('9', '==')) %}
+        {% if (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('16.04', '==')) or (ansible_distribution == 'Debian' and ansible_distribution_major_version is version('9', '==')) %}
         fastcgi_pass unix:/run/php/php7.0-fpm-{{ domain_name }}.sock;
-        {% elif ansible_distribution == 'Ubuntu' and ansible_distribution_version is version_compare('18.04', '==') %}
+        {% elif ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('18.04', '==') %}
         fastcgi_pass unix:/run/php/php7.2-fpm-{{ domain_name }}.sock;
-        {% elif ansible_distribution == 'Debian' and ansible_distribution_version is version_compare('10', '==') %}
+        {% elif ansible_distribution == 'Debian' and ansible_distribution_version is version('10', '==') %}
         fastcgi_pass unix:/run/php/php7.3-fpm-{{ domain_name }}.sock;
         {% else %}
         fastcgi_pass unix:/var/run/php5-fpm-{{ domain_name }}.sock;
