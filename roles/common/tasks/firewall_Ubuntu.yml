@@ -13,6 +13,10 @@
     when: ansible_distribution_version is version('16.04', '>=')
     apt: pkg={{ ubuntu_firewall_packages }} state=present
 
+  - name: Remove ufw
+    when: ansible_distribution_version is version('16.04', '>=')
+    apt: pkg=ufw state=absent
+
   - name: Copy firewalld public zone file
     when: ansible_distribution_version is version('16.04', '>=')
     template: src=public.xml.j2 dest=/etc/firewalld/zones/public.xml owner=root mode=0600
