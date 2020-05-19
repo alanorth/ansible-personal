@@ -34,14 +34,17 @@
   - name: Remove lxd snap
     snap: name=lxd state=absent
     when: ansible_distribution_version is version('20.04', '==')
+    ignore_errors: yes
 
   - name: Remove core18 snap
     snap: name=core18 state=absent
     when: ansible_distribution_version is version('20.04', '==')
+    ignore_errors: yes
 
   - name: Remove snapd snap
     snap: name=snapd state=absent
     when: ansible_distribution_version is version('20.04', '==')
+    ignore_errors: yes
 
   - name: Set fact for packages to remove (Ubuntu <= 18.04)
     set_fact:
