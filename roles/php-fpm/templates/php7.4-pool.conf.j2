@@ -1,7 +1,9 @@
-; Start a new pool named 'www'.
+{% set domain_name  = item.domain_name %}
+
+; Start a new pool named '{{ domain_name }}'.
 ; the variable $pool can be used in any directive and will be replaced by the
-; pool name ('www' here)
-[www]
+; pool name ('{{ domain_name }}' here)
+[{{ domain_name }}]
 
 ; Per pool prefix
 ; It only applies on the following directives:
@@ -20,8 +22,8 @@
 ; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
-user = www-data
-group = www-data
+user = nginx
+group = nginx
 
 ; The address on which to accept FastCGI requests.
 ; Valid syntaxes are:
@@ -33,7 +35,7 @@ group = www-data
 ;                            (IPv6 and IPv4-mapped) on a specific port;
 ;   '/path/to/unix/socket' - to listen on a unix socket.
 ; Note: This value is mandatory.
-listen = /run/php/php7.4-fpm.sock
+listen = /run/php/php7.4-fpm-{{ domain_name }}.sock
 
 ; Set listen(2) backlog.
 ; Default Value: 511 (-1 on FreeBSD and OpenBSD)
@@ -304,14 +306,10 @@ pm.max_spare_servers = 3
 ;  %s: status (response code)
 ;  %t: server time the request was received
 ;      it can accept a strftime(3) format:
-;      %d/%b/%Y:%H:%M:%S %z (default)
 ;      The strftime(3) format must be encapsuled in a %{<strftime_format>}t tag
-;      e.g. for a ISO8601 formatted timestring, use: %{%Y-%m-%dT%H:%M:%S%z}t
 ;  %T: time the log has been written (the request has finished)
 ;      it can accept a strftime(3) format:
-;      %d/%b/%Y:%H:%M:%S %z (default)
 ;      The strftime(3) format must be encapsuled in a %{<strftime_format>}t tag
-;      e.g. for a ISO8601 formatted timestring, use: %{%Y-%m-%dT%H:%M:%S%z}t
 ;  %u: remote user
 ;
 ; Default: "%R - %u %t \"%m %r\" %s"
