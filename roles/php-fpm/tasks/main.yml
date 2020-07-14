@@ -1,12 +1,7 @@
 ---
-# Note: Debian 9's php-fpm config is identical to Ubuntu 16.04's, so for now we
-# can capitalize on that and use the same tasks. Ubuntu 18.04 uses php-fpm 7.2.
-# Debian 10 uses php-fpm 7.3. Ubuntu 20.04 uses PHP 7.4.
-
-- name: Configure php-fpm on Ubuntu 16.04 and Debian 9
-  include_tasks: Ubuntu.yml
-  when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('16.04', '==')) or (ansible_distribution == 'Debian' and ansible_distribution_major_version is version('9', '=='))
-  tags: php-fpm
+# Ubuntu 18.04 uses php-fpm 7.2
+# Debian 10 uses php-fpm 7.3
+# Ubuntu 20.04 uses PHP 7.4
 
 - name: Configure php-fpm on Ubuntu 18.04
   include_tasks: Ubuntu_18.04.yml

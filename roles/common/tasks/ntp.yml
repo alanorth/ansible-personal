@@ -1,7 +1,6 @@
 ---
 # Hosts running Ubuntu 16.04+ and Debian 9+ use systemd init system and should
 # use timedatectl as a network time client instead of the standalone ntp client.
-# Earlier versions of those distros should use the ntp/ntpd package.
 
 - name: Set timezone
   when: timezone is defined and ansible_service_mgr == 'systemd'
@@ -15,9 +14,5 @@
 - name: Uninstall ntp on modern Ubuntu/Debian
   apt: name=ntp state=absent update_cache=yes
   when: ansible_service_mgr == 'systemd'
-
-- name: Install ntp on old Ubuntu/Debian
-  apt: name=ntp state=present update_cache=yes
-  when: ansible_service_mgr != 'systemd'
 
 # vim: set ts=2 sw=2:

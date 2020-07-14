@@ -1,12 +1,6 @@
 ---
 # file: roles/common/handlers/main.yml
 
-- name: restart iptables
-  service: name=iptables state=restarted
-
-- name: restart iptables-persistent
-  service: name=iptables-persistent state=restarted
-
 - name: reload sshd
   systemd: name={{ sshd_service_name }} state=reloaded
 
