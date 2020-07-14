@@ -20,6 +20,6 @@
     - restart munin-node
 
 - name: Start munin-node
-  service: name=munin-node state=started enabled=true
+  systemd: name=munin-node state=started enabled=true
 
 # vim: set ts=2 sw=2:
