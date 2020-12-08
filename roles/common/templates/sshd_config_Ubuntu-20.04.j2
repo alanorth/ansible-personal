@@ -131,5 +131,10 @@ Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes256-ctr
 MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256
 KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
 
-# only allow shell access by provisioning user
-AllowUsers {{ provisioning_user.name }}
+{% if ssh_allowed_users is defined and ssh_allowed_users %}
+# Is there a list of allowed users?
+# Is it populated? (An empty list is 'None', which evaluates as False in Python)
+# merge the items of a list into one string using a space as a separator
+# http://jinja.pocoo.org/docs/dev/templates/#join
+AllowUsers {{ ssh_allowed_users|join(" ") }} {{ provisioning_user.name }}
+{% endif %}
